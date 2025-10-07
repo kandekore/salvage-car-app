@@ -1,103 +1,110 @@
 import React, { useState } from 'react';
-import RegistrationForm from '../components/RegistrationForm';
-import VehicleDetails from '../components/VehicleDetails';
-import ManualEntryForm from '../components/ManualEntryForm';
-import UserDetailsForm from '../components/UserDetailsForm';
+import { Container } from 'react-bootstrap';
+import Hero from '../components/Hero';
 
 const HomePage = () => {
-  const [step, setStep] = useState(1);
-  const [vehicle, setVehicle] = useState(null);
-  const [formData, setFormData] = useState({});
+    const [step, setStep] = useState(1);
+    const [vehicleData, setVehicleData] = useState(null);
+    const [formData, setFormData] = useState({});
+    const [error, setError] = useState('');
+    const [apiResponse, setApiResponse] = useState('');
 
-  const handleSearch = async ({ registration, postcode }) => {
-    setStep(2);
-    setFormData({ registration, postcode });
+    const handleSearch = async ({ registration, postcode }) => {
+        setStep(2);
+        setError('');
+        setFormData({ registration, postcode });
 
-    try {
-      // The URL must be exactly this
-      const res = await fetch('http://localhost:5001/api/vehicle-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ registration }),
-      });
+        try {
+            const res = await fetch('http://localhost:5001/api/vehicle-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ registration }),
+            });
 
-      if (!res.ok) {
-        setStep(4);
-        return;
-      }
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || 'Vehicle not found');
+            }
+            const data = await res.json();
+            setVehicleData(data);
+            setStep(3);
+        } catch (err) {
+            setError(err.message);
+            setStep(4);
+        }
+    };
 
-      const data = await res.json();
-      setVehicle(data);
-      setStep(3);
-    } catch (error) {
-      console.error("Search failed:", error);
-      setStep(4);
-    }
-  };
-
-  const handleConfirm = () => {
-    setFormData({ ...formData, ...vehicle });
-    setStep(5);
-  };
-
-  const handleManualSubmit = (vehicleDetails) => {
-    setFormData({ ...formData, ...vehicleDetails });
-    setStep(5);
-  };
-
-  const handleUserDetailsSubmit = async (userDetails) => {
-    const finalData = { ...formData, ...userDetails };
+    const handleConfirm = () => {
+        setFormData({ ...formData, ...vehicleData });
+        setStep(5);
+    };
     
-    try {
-      const res = await fetch('http://localhost:5001/api/submit-request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(finalData),
-      });
+    const handleReject = () => {
+        setVehicleData(null);
+        setStep(1);
+    };
 
-      if (!res.ok) throw new Error('Submission failed');
+    const handleManualSubmit = (manualVehicleDetails) => {
+        setFormData({ ...formData, ...manualVehicleDetails });
+        setStep(5);
+    };
 
-      const result = await res.json();
-      alert(result.message);
-      setVehicle(null);
-      setFormData({});
-      setStep(1);
+    const handleUserDetailsSubmit = async (userDetails) => {
+        const finalData = { ...formData, ...userDetails };
+        try {
+            const res = await fetch('http://localhost:5001/api/submit-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(finalData),
+            });
+            if (!res.ok) throw new Error((await res.json()).message);
 
-    } catch (error) {
-      alert('There was an error submitting your request.');
-    }
-  };
+            const result = await res.json();
+            setApiResponse(result.message);
 
-  const renderStep = () => {
-    switch (step) {
-      case 2:
-        return <p>Loading vehicle data...</p>;
-      case 3:
-        return <VehicleDetails vehicle={vehicle} onConfirm={handleConfirm} />;
-      case 4:
-        return (
-          <div>
-            <p><strong>Sorry, we could not find that vehicle.</strong></p>
-            <p>Please check the registration and try again, or enter the details manually below.</p>
-            <RegistrationForm onSearch={handleSearch} />
-            <hr style={{ margin: '2rem 0' }} />
-            <ManualEntryForm onSubmit={handleManualSubmit} />
-          </div>
-        );
-      case 5:
-        return <UserDetailsForm onSubmit={handleUserDetailsSubmit} />;
-      case 1:
-      default:
-        return <RegistrationForm onSearch={handleSearch} />;
-    }
-  };
+            setTimeout(() => {
+                setStep(1);
+                setVehicleData(null);
+                setApiResponse('');
+            }, 5000);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
-  return (
-    <div>
-      <h1>Scrap Your Car for Cash</h1>
-      {renderStep()}
-    </div>
-  );
+    return (
+        <div>
+            <Hero
+                title="Scrap Your Car For Cash"
+                subtitle="Get an instant online quote for your salvage or scrap vehicle."
+                image="https://via.placeholder.com/1920x1080" // Replace with your desired home page image
+                step={step}
+                vehicleData={vehicleData}
+                error={error}
+                apiResponse={apiResponse}
+                onSearch={handleSearch}
+                onConfirm={handleConfirm}
+                onReject={handleReject}
+                onManualSubmit={handleManualSubmit}
+                onUserDetailsSubmit={handleUserDetailsSubmit}
+            />
+            
+            <Container className="py-5">
+                <div className="mt-5 text-center">
+                    <h2>Welcome to Our Website</h2>
+                    <p className="lead">
+                        We offer the best prices for your scrap and salvage vehicles. 
+                        Enter your registration above to get started with an instant, no-obligation quote.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.
+                        Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                        Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
+                    </p>
+                </div>
+            </Container>
+        </div>
+    );
 };
 
 export default HomePage;
