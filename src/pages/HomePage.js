@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-
+import ContentSection from '../components/ContentSection';
 import Hero from '../components/Hero';
 import heroBackgroundImage from '../assets/images/drkbgd.jpg';
 
@@ -108,8 +108,7 @@ const HomePage = () => {
                 onManualSubmit={handleManualSubmit}
                 onUserDetailsSubmit={handleUserDetailsSubmit}
             />
-            
-            <div className="bg-white">
+                    <div className="bg-white">
                 <Container className="py-5">
                     <section className="text-center">
                         <h2 className="mb-4">Our Simple 3-Step Process</h2>
@@ -152,68 +151,40 @@ const HomePage = () => {
                 </Container>
             </div>
 
-            {/* Section 2: Alternating Content on the default light gray background */}
-            <Container className="py-5">
-                <section>
-                    <Row className="align-items-center mb-5">
-                        <Col md={6}>
-                            <i className="fa-solid fa-file-invoice fa-2x text-danger mb-2"></i>
-                            <h3>Failed its MOT? No Problem.</h3>
-                            <p>
-                                An MOT failure can mean expensive repairs. Instead of pouring money into an older car, sell it to us. We buy cars with any MOT issues, from emissions problems to structural rust. We see the value in the parts, ensuring you get a price that reflects the car's true worth, not just its repair bill.
-                            </p>
-                            <Button variant="danger">Get Your MOT Failure Quote</Button>
-                        </Col>
-                        <Col md={6}>
-                            <img src={motFailureImage} alt="Car with an MOT failure certificate" className="img-fluid rounded shadow" />
-                        </Col>
-                    </Row>
+            {/* New Full-Width Content Sections */}
+          <ContentSection
+                icon="fa-solid fa-file-invoice"
+                title="Failed its MOT? No Problem."
+                text="An MOT failure can mean expensive repairs. Instead of pouring money into an older car, sell it to us. We see the value in the parts, ensuring you get a price that reflects the car's true worth, not just its repair bill."
+                image={motFailureImage}
+                textPosition="right" // Use textPosition instead of imagePosition
+                buttonText="Get Your MOT Failure Quote"
+            />
+            <ContentSection
+                icon="fa-solid fa-car-burst"
+                title="Insurance Write-Offs Bought for Cash"
+                text="Has your car been declared a Category N or S write-off? Don't just accept the insurer's low offer. We specialize in buying repairable salvage vehicles, allowing us to offer you a far better price."
+                image={writeOffImage}
+                textPosition="left" // Use textPosition instead of imagePosition
+                buttonText="Value My Write-Off"
+            />
+            <ContentSection
+                icon="fa-solid fa-wrench"
+                title="Sell Your Accident Damaged Car"
+                text="From minor dents to major collision damage, we make it easy. Provide details and photos, and our buyers will give you a fair, competitive quote based on the vehicle's salvageable parts and repair potential."
+                image={accidentDamageImage}
+                textPosition="right" // Use textPosition instead of imagePosition
+                buttonText="Get My Damaged Car Quote"
+            />
+            <ContentSection
+                icon="fa-solid fa-engine"
+                title="Mechanical & Engine Failures"
+                text="Is your car suffering from a seized engine or faulty gearbox? These issues can be costly to fix. We buy non-running cars with any mechanical problem because your car is a collection of valuable parts."
+                image={mechanicalFailureImage}
+                textPosition="left" // Use textPosition instead of imagePosition
+                buttonText="Quote for My Non-Runner"
+            />
 
-                    {/* This section will have a white background to create contrast */}
-                    <Row className="align-items-center mb-5 py-5 px-3 bg-white rounded shadow-sm">
-                        <Col md={6} className="order-md-2">
-                             <i className="fa-solid fa-car-burst fa-2x text-danger mb-2"></i>
-                            <h3>Insurance Write-Offs Bought for Cash</h3>
-                            <p>
-                                Has your car been declared a Category N or S write-off? Don't just accept the insurer's low offer. We specialize in buying repairable salvage vehicles. Our network can either repair the vehicle or strip it for valuable parts, allowing us to offer you a far better price.
-                            </p>
-                            <Button variant="danger">Value My Write-Off</Button>
-                        </Col>
-                        <Col md={6} className="order-md-1">
-                            <img src={writeOffImage} alt="An insurance write-off vehicle" className="img-fluid rounded shadow" />
-                        </Col>
-                    </Row>
-
-                    <Row className="align-items-center mb-5">
-                        <Col md={6}>
-                             <i className="fa-solid fa-wrench fa-2x text-danger mb-2"></i>
-                            <h3>Sell Your Accident Damaged Car</h3>
-                            <p>
-                               From minor dents and scrapes to major collision damage, we are interested. Selling a damaged car privately can be difficult. We make it easy. Provide details and photos of the damage, and our buyers will give you a fair, competitive quote based on the vehicle's salvageable parts and repair potential.
-                            </p>
-                             <Button variant="danger">Get My Damaged Car Quote</Button>
-                        </Col>
-                        <Col md={6}>
-                            <img src={accidentDamageImage} alt="A car with accident damage" className="img-fluid rounded shadow" />
-                        </Col>
-                    </Row>
-                    
-                     {/* This section will also have a white background */}
-                     <Row className="align-items-center mb-5 py-5 px-3 bg-white rounded shadow-sm">
-                        <Col md={6} className="order-md-2">
-                             <i className="fa-solid fa-engine fa-2x text-danger mb-2"></i>
-                            <h3>Mechanical & Engine Failures</h3>
-                            <p>
-                                Is your car suffering from a seized engine, a faulty gearbox, or a blown head gasket? These issues can be costly to fix. We buy non-running cars with any mechanical problem. Your car is a collection of valuable parts, and we'll pay you for them.
-                            </p>
-                             <Button variant="danger">Quote for My Non-Runner</Button>
-                        </Col>
-                        <Col md={6} className="order-md-1">
-                            <img src={mechanicalFailureImage} alt="A car with its hood up showing a broken engine" className="img-fluid rounded shadow" />
-                        </Col>
-                    </Row>
-                </section>
-            </Container>
         </div>
     );
 };

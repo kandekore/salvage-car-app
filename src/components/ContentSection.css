@@ -1,0 +1,50 @@
+/* The main container for each full-width section */
+.content-section {
+  position: relative; /* Crucial for positioning the text box inside */
+  width: 100%;
+  min-height: 550px; /* Give the section a good height */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* Hide the text box before it animates in */
+}
+
+/* The box containing the text content */
+.text-box-overlay {
+  position: absolute;
+  width: 45%; /* The box takes up less than half the width */
+  max-width: 550px;
+  background-color: white;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  
+  /* Animation setup */
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* --- Positioning Classes --- */
+
+/* Position the text box on the LEFT */
+.content-section.position-left .text-box-overlay {
+  left: 5%;
+  transform: translateX(-100%); /* Start off-screen to the left */
+}
+
+/* Position the text box on the RIGHT */
+.content-section.position-right .text-box-overlay {
+  right: 5%;
+  transform: translateX(100%); /* Start off-screen to the right */
+}
+
+
+/* --- Animation Trigger --- */
+
+/* When the section is in view, slide the text box into its final position */
+.content-section.in-view.position-left .text-box-overlay,
+.content-section.in-view.position-right .text-box-overlay {
+  opacity: 1;
+  transform: translateX(0);
+}
