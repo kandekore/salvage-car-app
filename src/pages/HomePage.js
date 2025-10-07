@@ -151,38 +151,41 @@ const HomePage = () => {
                 </Container>
             </div>
 
-            {/* New Full-Width Content Sections */}
-          <ContentSection
+         <ContentSection
                 icon="fa-solid fa-file-invoice"
                 title="Failed its MOT? No Problem."
                 text="An MOT failure can mean expensive repairs. Instead of pouring money into an older car, sell it to us. We see the value in the parts, ensuring you get a price that reflects the car's true worth, not just its repair bill."
                 image={motFailureImage}
-                textPosition="right" // Use textPosition instead of imagePosition
+                textPosition="right"
                 buttonText="Get Your MOT Failure Quote"
+                linkTo="/mot-failures" 
             />
             <ContentSection
                 icon="fa-solid fa-car-burst"
                 title="Insurance Write-Offs Bought for Cash"
                 text="Has your car been declared a Category N or S write-off? Don't just accept the insurer's low offer. We specialize in buying repairable salvage vehicles, allowing us to offer you a far better price."
                 image={writeOffImage}
-                textPosition="left" // Use textPosition instead of imagePosition
+                textPosition="left"
                 buttonText="Value My Write-Off"
+                linkTo="/insurance-write-off" 
             />
             <ContentSection
                 icon="fa-solid fa-wrench"
                 title="Sell Your Accident Damaged Car"
                 text="From minor dents to major collision damage, we make it easy. Provide details and photos, and our buyers will give you a fair, competitive quote based on the vehicle's salvageable parts and repair potential."
                 image={accidentDamageImage}
-                textPosition="right" // Use textPosition instead of imagePosition
+                textPosition="right"
                 buttonText="Get My Damaged Car Quote"
+                linkTo="/accident-damage" 
             />
             <ContentSection
                 icon="fa-solid fa-engine"
                 title="Mechanical & Engine Failures"
                 text="Is your car suffering from a seized engine or faulty gearbox? These issues can be costly to fix. We buy non-running cars with any mechanical problem because your car is a collection of valuable parts."
                 image={mechanicalFailureImage}
-                textPosition="left" // Use textPosition instead of imagePosition
+                textPosition="left"
                 buttonText="Quote for My Non-Runner"
+                linkTo="/mechanical-failure" 
             />
 
         </div>

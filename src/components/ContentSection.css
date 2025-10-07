@@ -1,50 +1,107 @@
-/* The main container for each full-width section */
+/* --- DESKTOP STYLES --- */
 .content-section {
-  position: relative; /* Crucial for positioning the text box inside */
+  position: relative; 
   width: 100%;
-  min-height: 550px; /* Give the section a good height */
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  overflow: hidden; /* Hide the text box before it animates in */
+  min-height: 550px;
+  overflow: hidden; 
+  background-color: #f8f9fa;
+  margin: 2rem 0; 
 }
 
-/* The box containing the text content */
-.text-box-overlay {
+.image-container {
   position: absolute;
-  width: 45%; /* The box takes up less than half the width */
-  max-width: 550px;
-  background-color: white;
-  padding: 3rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  
-  /* Animation setup */
+  top: 0;
+  bottom: 0;
+  width: 70%;
+  background-size: cover;
+  background-position: center;
   opacity: 0;
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* --- Positioning Classes --- */
+.text-box-overlay {
+  position: absolute;
+  width: 45%;
+  max-width: 500px;
+  background-color: white;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition-delay: 0.2s; 
 
-/* Position the text box on the LEFT */
-.content-section.position-left .text-box-overlay {
-  left: 5%;
-  transform: translateX(-100%); /* Start off-screen to the left */
+  /* --- NEW: Center align all content within the box --- */
+  text-align: center; 
 }
 
-/* Position the text box on the RIGHT */
-.content-section.position-right .text-box-overlay {
-  right: 5%;
-  transform: translateX(100%); /* Start off-screen to the right */
+/* --- NEW: Style the icon specifically --- */
+.text-box-overlay > .fa-2x {
+    font-size: 4rem; /* Make the icon larger */
+    margin-bottom: 1.5rem !important; /* Increase space below the icon */
 }
 
+/* Positioning for TEXT ON THE RIGHT */
+.content-section.text-right .image-container {
+  left: 0;
+  transform: translateX(-50%);
+}
+.content-section.text-right .text-box-overlay {
+  right: 10%;
+  left: auto;
+  transform: translate(100%, -50%);
+}
 
-/* --- Animation Trigger --- */
+/* Positioning for TEXT ON THE LEFT */
+.content-section.text-left .image-container {
+  right: 0;
+  transform: translateX(50%);
+}
+.content-section.text-left .text-box-overlay {
+  left: 10%;
+  right: auto;
+  transform: translate(-100%, -50%);
+}
 
-/* When the section is in view, slide the text box into its final position */
-.content-section.in-view.position-left .text-box-overlay,
-.content-section.in-view.position-right .text-box-overlay {
+/* Animation Trigger */
+.content-section.in-view .image-container {
   opacity: 1;
   transform: translateX(0);
+}
+.content-section.in-view .text-box-overlay {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+
+/* --- MOBILE STYLES --- */
+@media (max-width: 767px) {
+  .content-section {
+    min-height: auto;
+    margin: 0;
+    display: block;
+  }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .text-box-overlay {
+    position: relative;
+    width: 90%;
+    max-width: none;
+    margin: -50px auto 2rem auto;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
