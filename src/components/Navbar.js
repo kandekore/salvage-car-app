@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
-const AppNavbar = () => { // Renamed to avoid conflict with Bootstrap's Navbar
+const AppNavbar = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
       <Container>
@@ -13,6 +13,8 @@ const AppNavbar = () => { // Renamed to avoid conflict with Bootstrap's Navbar
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/about">About</Nav.Link>
             <Nav.Link as={Link} to="/mot-failures">MOT Failures</Nav.Link>
+            {/* Add the new link here */}
+            <Nav.Link as={Link} to="/mechanical-failure">Mechanical Failure</Nav.Link>
             <Nav.Link as={Link} to="/insurance-write-off">Insurance Write Off</Nav.Link>
             <Nav.Link as={Link} to="/accident-damage">Accident Damage</Nav.Link>
             <Nav.Link as={Link} to="/what-is-salvage">What is Salvage?</Nav.Link>

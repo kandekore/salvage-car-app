@@ -109,46 +109,51 @@ const HomePage = () => {
                 onUserDetailsSubmit={handleUserDetailsSubmit}
             />
             
-            <Container className="py-5">
-                <section className="text-center mb-5">
-                    <h2 className="mb-4">Our Simple 3-Step Process</h2>
-                    <Row>
-                        <Col md={4}>
-                            <Card className="h-100 border-0 shadow-sm">
-                                <Card.Body>
-                                    <i className="fas fa-car fa-3x text-danger mb-3"></i>
-                                    <Card.Title>1. Get a Valuation</Card.Title>
-                                    <Card.Text>
-                                        Enter your vehicle's registration and postcode. Provide an accurate description of the damage for the best price.
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={4}>
-                            <Card className="h-100 border-0 shadow-sm">
-                                <Card.Body>
-                                    <i className="fas fa-handshake fa-3x text-danger mb-3"></i>
-                                    <Card.Title>2. Accept The Offer</Card.Title>
-                                    <Card.Text>
-                                        Accept our guaranteed, fixed price offer. No haggling, no tyre-kicking, just honest salvage prices.
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={4}>
-                            <Card className="h-100 border-0 shadow-sm">
-                                <Card.Body>
-                                    <i className="fas fa-truck-pickup fa-3x text-danger mb-3"></i>
-                                    <Card.Title>3. Free Collection & Payment</Card.Title>
-                                    <Card.Text>
-                                        We arrange free collection from anywhere in the UK and pay you instantly via secure bank transfer.
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </section>
+            <div className="bg-white">
+                <Container className="py-5">
+                    <section className="text-center">
+                        <h2 className="mb-4">Our Simple 3-Step Process</h2>
+                        <Row>
+                            <Col md={4} className="mb-4">
+                                <Card className="h-100 border-0 shadow-sm">
+                                    <Card.Body>
+                                        <i className="fas fa-car fa-3x text-danger mb-3"></i>
+                                        <Card.Title>1. Get a Valuation</Card.Title>
+                                        <Card.Text>
+                                            Enter your vehicle's registration and postcode. Provide an accurate description of the damage for the best price.
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col md={4} className="mb-4">
+                                <Card className="h-100 border-0 shadow-sm">
+                                    <Card.Body>
+                                        <i className="fas fa-handshake fa-3x text-danger mb-3"></i>
+                                        <Card.Title>2. Accept The Offer</Card.Title>
+                                        <Card.Text>
+                                            Accept our guaranteed, fixed price offer. No haggling, no tyre-kicking, just honest salvage prices.
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col md={4} className="mb-4">
+                                <Card className="h-100 border-0 shadow-sm">
+                                    <Card.Body>
+                                        <i className="fas fa-truck-pickup fa-3x text-danger mb-3"></i>
+                                        <Card.Title>3. Free Collection & Payment</Card.Title>
+                                        <Card.Text>
+                                            We arrange free collection from anywhere in the UK and pay you instantly via secure bank transfer.
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </section>
+                </Container>
+            </div>
 
+            {/* Section 2: Alternating Content on the default light gray background */}
+            <Container className="py-5">
                 <section>
                     <Row className="align-items-center mb-5">
                         <Col md={6}>
@@ -164,7 +169,8 @@ const HomePage = () => {
                         </Col>
                     </Row>
 
-                    <Row className="align-items-center mb-5">
+                    {/* This section will have a white background to create contrast */}
+                    <Row className="align-items-center mb-5 py-5 px-3 bg-white rounded shadow-sm">
                         <Col md={6} className="order-md-2">
                              <i className="fa-solid fa-car-burst fa-2x text-danger mb-2"></i>
                             <h3>Insurance Write-Offs Bought for Cash</h3>
@@ -192,7 +198,8 @@ const HomePage = () => {
                         </Col>
                     </Row>
                     
-                     <Row className="align-items-center mb-5">
+                     {/* This section will also have a white background */}
+                     <Row className="align-items-center mb-5 py-5 px-3 bg-white rounded shadow-sm">
                         <Col md={6} className="order-md-2">
                              <i className="fa-solid fa-engine fa-2x text-danger mb-2"></i>
                             <h3>Mechanical & Engine Failures</h3>

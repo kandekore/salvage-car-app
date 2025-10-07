@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import './VehicleSearchForm.css';
+// Import your map image
+import mapBackground from '../assets/images/maps.jpeg'; 
 
 const VehicleSearchForm = ({ onSearch }) => {
   const [registration, setRegistration] = useState('');
@@ -14,29 +17,40 @@ const VehicleSearchForm = ({ onSearch }) => {
 
   return (
     <Form onSubmit={handleSubmit} className="p-4 rounded" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
-      <Form.Group className="mb-3" controlId="formRegistration">
+      {/* Registration Input (no changes here) */}
+      <div className="form-header-text">
+        <p>For a no obligation quote, complete the form or call</p>
+        <span>0800 002 9733</span> or <span>07766 797 352</span>
+      </div>
+      <Form.Group className="mb-3 input-with-icon-container" controlId="formRegistration">
+        <div className="gb-icon">
+          <div className="gb-text">GB</div>
+        </div>
         <Form.Control
           type="text"
-          placeholder="Enter car registration"
+          className="custom-form-input reg-input"
+          placeholder="REG NUMBER"
           value={registration}
           onChange={(e) => setRegistration(e.target.value.toUpperCase())}
           required
-          style={{ backgroundColor: 'yellow', color: 'black' }}
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formPostcode">
+      {/* Postcode Input with Map Background */}
+      <Form.Group className="mb-3 input-with-icon-container" controlId="formPostcode">
+        <div className="map-icon" style={{ backgroundImage: `url(${mapBackground})` }}>
+        </div>
         <Form.Control
           type="text"
-          placeholder="Enter postcode"
+          className="custom-form-input postcode-input" // Added 'postcode-input' class
+          placeholder="POSTCODE"
           value={postcode}
           onChange={(e) => setPostcode(e.target.value.toUpperCase())}
           required
-          style={{ backgroundColor: 'yellow', color: 'black' }}
         />
       </Form.Group>
 
-      <Button variant="danger" type="submit" className="w-100 fw-bold">
+      <Button variant="danger" type="submit" className="w-100 fw-bold custom-form-button">
         Get a Quote
       </Button>
     </Form>
