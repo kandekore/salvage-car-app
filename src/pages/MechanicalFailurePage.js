@@ -1,34 +1,129 @@
-import React from 'react';
-import Hero from '../components/Hero';
-import { Container } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
-// You will need to import the hero image you want to use
-import mechanicalFailureHero from '../assets/images/mechanical-failure.jpg';
+import Hero from '../components/Hero';
+import ContentSection from '../components/ContentSection';
+
+// You can find relevant images and place them in your assets folder
+import heroImage from '../assets/images/mechanical-failure.jpg';
+import engineImage from '../assets/images/seized-engine.jpg';
+import gearboxImage from '../assets/images/faulty-gearbox.jpg';
+import towTruckImage from '../assets/images/licensed.jpg';
 
 const MechanicalFailurePage = () => {
-  // You can copy the state management and handlers from HomePage.js
-  // if you want the form on this page to be functional.
-  
-  return (
-    <div>
-      <Hero
-        title="Mechanical & Engine Failures"
-        subtitle="Get a great price for your non-runner, even with a seized engine or faulty gearbox."
-        image={mechanicalFailureHero}
-        // Pass in the step and handlers here to make the form work
-        step={1} 
-      />
-      <Container className="py-5">
-        <h2>We Buy Cars With Any Mechanical Problem</h2>
-        <p>
-          A car with a major mechanical issue like a blown head gasket, seized engine, or transmission failure can feel like a worthless burden. Repair bills can often exceed the car's value, leaving you stuck. That's where we come in. We see the value beyond the fault. Your vehicle is a collection of hundreds of functional, valuable parts, and our nationwide network of salvage experts is ready to pay you for them.
-        </p>
-        <p>
-          Don't let a faulty gearbox or a non-starting engine stop you from getting cash for your car. Enter your registration number above for an instant, no-obligation quote and see how much your non-running vehicle could be worth.
-        </p>
-      </Container>
-    </div>
-  );
+    // --- State and handlers to make the quote form functional ---
+    const [step, setStep] = useState(1);
+    const [vehicleData, setVehicleData] = useState(null);
+    const [formData, setFormData] = useState({});
+    const [error, setError] = useState('');
+    const [apiResponse, setApiResponse] = useState('');
+
+    const handleSearch = async ({ registration, postcode }) => {
+        setStep(2);
+        setError('');
+        setFormData({ registration, postcode });
+        try {
+            const res = await fetch('http://localhost:5001/api/vehicle-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ registration }),
+            });
+            if (!res.ok) throw new Error((await res.json()).message || 'Vehicle not found');
+            const data = await res.json();
+            setVehicleData(data);
+            setStep(3);
+        } catch (err) {
+            setError(err.message);
+            setStep(4);
+        }
+    };
+
+    const handleConfirm = () => {
+        setFormData({ ...formData, ...vehicleData });
+        setStep(5);
+    };
+    
+    const handleReject = () => {
+        setVehicleData(null);
+        setStep(1);
+    };
+
+    const handleManualSubmit = (manualVehicleDetails) => {
+        setFormData({ ...formData, ...manualVehicleDetails });
+        setStep(5);
+    };
+
+    const handleUserDetailsSubmit = async (userDetails) => {
+        const finalData = { ...formData, ...userDetails };
+        try {
+            const res = await fetch('http://localhost:5001/api/submit-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(finalData),
+            });
+            if (!res.ok) throw new Error((await res.json()).message);
+            const result = await res.json();
+            setApiResponse(result.message);
+            setTimeout(() => {
+                setStep(1); setVehicleData(null); setApiResponse('');
+            }, 5000);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    return (
+        <div>
+            <Helmet>
+                <title>Sell Car with Mechanical Failure | Engine or Gearbox Problems</title>
+                <meta name="description" content="Got a seized engine, faulty gearbox, or blown head gasket? Sell your non-running car for a great price. We buy vehicles with any mechanical failure." />
+                <meta property="og:title" content="Sell Car with Mechanical Failure | Engine or Gearbox Problems" />
+            </Helmet>
+
+            <Hero
+                title="Major Mechanical Failure?"
+                subtitle="A seized engine or broken gearbox doesn't mean your car is worthless. Get a top salvage price today."
+                image={heroImage}
+                step={step}
+                vehicleData={vehicleData}
+                error={error}
+                apiResponse={apiResponse}
+                onSearch={handleSearch}
+                onConfirm={handleConfirm}
+                onReject={handleReject}
+                onManualSubmit={handleManualSubmit}
+                onUserDetailsSubmit={handleUserDetailsSubmit}
+            />
+            
+            <ContentSection
+                icon="fa-solid fa-engine-warning" // Pro icon, make sure your kit supports it
+                title="Seized Engine or Blown Head Gasket?"
+                text="An engine failure is one of the most expensive problems a car owner can face. The cost of a replacement engine or a head gasket repair can easily be more than the car is worth. Instead of facing a huge garage bill, get an instant quote from us. We value the working components of your car, guaranteeing you a fair price."
+                image={engineImage}
+                textPosition="right"
+                buttonText="Value My Non-Running Car"
+                linkTo="/"
+            />
+            <ContentSection
+                icon="fa-solid fa-gears"
+                title="Faulty Gearbox & Transmission Issues"
+                text="Whether it's a crunching manual or a slipping automatic, gearbox problems are a serious and costly issue. We buy cars with all types of transmission failures. Don't let it sit gathering dust—find out how much cash you could get for your vehicle with a faulty gearbox right now."
+                image={gearboxImage}
+                textPosition="left"
+                buttonText="Get My Quote Now"
+                linkTo="/"
+            />
+            <ContentSection
+                icon="fa-solid fa-truck-pickup"
+                title="Free Collection for Any Non-Runner"
+                text="One of the biggest worries with a non-running car is how to move it. We solve that problem for you. Every quote we provide includes fast and free collection from your home, garage, or even the side of the road. Our agents will arrange a convenient time and arrive with the right equipment to recover your vehicle at no extra cost to you."
+                image={towTruckImage}
+                textPosition="right"
+                buttonText="Arrange Free Collection"
+                linkTo="/"
+            />
+        </div>
+    );
 };
 
 export default MechanicalFailurePage;

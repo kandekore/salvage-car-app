@@ -95,7 +95,7 @@ const HomePage = () => {
             </Helmet>
 
             <Hero
-                title="Turn Your Damaged Car Into Cash"
+                title="Turn Your Unwanted Car Into Cash"
                 subtitle="We pay top salvage prices, not scrap prices. Get your free, guaranteed quote in seconds."
                 image={heroBackgroundImage}
                 step={step}

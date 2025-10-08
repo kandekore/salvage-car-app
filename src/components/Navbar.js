@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 // Step 1: Import your logo image
-import logo from '../assets/images/logo.png'; // Make sure this path is correct
+import logo from '../assets/images/logotwotonepng.png'; // Make sure this path is correct
 
 const AppNavbar = () => {
   return (
@@ -28,7 +28,6 @@ const AppNavbar = () => {
             <Nav.Link as={Link} to="/insurance-write-off">Insurance Write Off</Nav.Link>
             <Nav.Link as={Link} to="/accident-damage">Accident Damage</Nav.Link>
             <Nav.Link as={Link} to="/what-is-salvage">What is Salvage?</Nav.Link>
-            <Nav.Link as={Link} to="/partners">Partners</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

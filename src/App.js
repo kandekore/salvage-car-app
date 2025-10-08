@@ -7,9 +7,9 @@ import MotFailuresPage from './pages/MotFailuresPage';
 import WriteOffPage from './pages/WriteOffPage';
 import AccidentDamagePage from './pages/AccidentDamagePage';
 import SalvageInfoPage from './pages/SalvageInfoPage';
-import PartnersPage from './pages/PartnersPage';
 import MechanicalFailurePage from './pages/MechanicalFailurePage';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import './App.css'; 
 
 
@@ -17,6 +17,7 @@ function App() {
   return (
       <Router>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+         <ScrollToTop /> 
         <AppNavbar />
         <main style={{ flex: 1 }}>
           <Routes>
@@ -28,7 +29,6 @@ function App() {
             <Route path="/insurance-write-off" element={<WriteOffPage />} />
             <Route path="/accident-damage" element={<AccidentDamagePage />} />
             <Route path="/what-is-salvage" element={<SalvageInfoPage />} />
-            <Route path="/partners" element={<PartnersPage />} />
           </Routes>
         </main>
         <Footer />
