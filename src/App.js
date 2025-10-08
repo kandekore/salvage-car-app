@@ -10,6 +10,15 @@ import SalvageInfoPage from './pages/SalvageInfoPage';
 import MechanicalFailurePage from './pages/MechanicalFailurePage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import AreasPage from './pages/AreasPage';
+import LocationPage from './pages/LocationPage';
+// Import the new pages
+import ManufacturersListPage from './pages/ManufacturersListPage';
+import ModelsListPage from './pages/ModelsListPage';
+import ManufacturerPage from './pages/ManufacturerPage';
+import ModelPage from './pages/ModelPage';
+import ModelsByManufacturerPage from './pages/ModelsByManufacturerPage'; // Import the new component
+
 import './App.css'; 
 
 
@@ -29,6 +38,20 @@ function App() {
             <Route path="/insurance-write-off" element={<WriteOffPage />} />
             <Route path="/accident-damage" element={<AccidentDamagePage />} />
             <Route path="/what-is-salvage" element={<SalvageInfoPage />} />
+            <Route path="/areas" element={<AreasPage />} />
+            <Route path="/salvagecarcollection/:level1" element={<LocationPage />} />
+            <Route path="/salvagecarcollection/:level1/:level2" element={<LocationPage />} />
+            <Route path="/salvagecarcollection/:level1/:level2/:level3" element={<LocationPage />} />
+            <Route path="/salvagecarcollection/:level1/:level2/:level3/:level4" element={<LocationPage />} />
+            
+ {/* New Vehicle Routes */}
+            <Route path="/manufacturers" element={<ManufacturersListPage />} />
+            <Route path="/models" element={<ModelsListPage />} />
+            <Route path="/manufacturer/:slug" element={<ManufacturerPage />} />
+                        <Route path="/manufacturer/:slug/models" element={<ModelsByManufacturerPage />} />
+
+            {/* Note: We will add the /manufacturer/:slug/models route later if needed */}
+            <Route path="/model/:make/:model" element={<ModelPage />} />
           </Routes>
         </main>
         <Footer />

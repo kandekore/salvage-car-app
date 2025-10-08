@@ -1,13 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
-
 import VehicleSearchForm from './VehicleSearchForm';
 import VehicleDetails from './VehicleDetails';
 import ManualEntryForm from './ManualEntryForm';
 import UserDetailsForm from './UserDetailsForm';
 
 const heroStyle = {
-  height: 'calc(100vh - 70px)', 
+  height: 'calc(100vh - 70px)',
   width: '100%',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
@@ -25,12 +24,12 @@ const overlayStyle = {
   alignItems: 'center'
 };
 
-const Hero = (props) => {
-  const { 
-    title, subtitle, image, onSearch, step, vehicleData, 
+// THE FIX: 'logo' is now just a prop, not imported from 'react-bootstrap'
+const Hero = ({ 
+    title, subtitle, image, logo, onSearch, step, vehicleData, 
     onConfirm, onReject, error, onManualSubmit, onUserDetailsSubmit, 
     apiResponse 
-  } = props;
+  }) => {
 
   const renderWorkflowStep = () => {
     switch (step) {
@@ -52,7 +51,6 @@ const Hero = (props) => {
         if (apiResponse) {
           return <Alert variant="success">{apiResponse}</Alert>;
         }
-        // Add the consistent background styling here
         return (
           <div className="p-4 rounded" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
             <UserDetailsForm onSubmit={onUserDetailsSubmit} />
@@ -69,6 +67,8 @@ const Hero = (props) => {
         <Container>
           <Row className="align-items-center">
             <Col md={6}>
+              {/* Conditionally render the logo if the prop is passed */}
+              {logo && <img src={logo} alt={`${title} Logo`} style={{ height: '60px', marginBottom: '1rem' }} />}
               <h1 className="display-4 fw-bold">{title}</h1>
               <p className="lead">{subtitle}</p>
             </Col>

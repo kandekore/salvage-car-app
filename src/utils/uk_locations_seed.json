@@ -1,0 +1,870 @@
+{
+  "schema": {
+    "level1": "region_or_nation",
+    "level2": "county_or_unitary_or_council_area",
+    "level3": "city_town_village",
+    "level4": "district_ward_neighbourhood"
+  },
+  "regions": {
+    "West Midlands": {
+      "Warwickshire": {
+        "Warwick": [],
+        "Royal Leamington Spa": [],
+        "Kenilworth": [],
+        "Nuneaton": [],
+        "Bedworth": [],
+        "Atherstone": [],
+        "Rugby": [],
+        "Stratford-upon-Avon": []
+      },
+      "Birmingham (Metropolitan Borough)": {
+        "Birmingham": [
+          "Aston",
+          "Edgbaston",
+          "Erdington",
+          "Handsworth",
+          "Harborne",
+          "Ladywood",
+          "Longbridge",
+          "Northfield",
+          "Perry Barr",
+          "Selly Oak",
+          "Shard End",
+          "Small Heath",
+          "Sutton Coldfield",
+          "Tyseley",
+          "Yardley",
+          "Kings Heath",
+          "Moseley",
+          "Sparkhill",
+          "Sparkbrook",
+          "Bournville",
+          "Acocks Green",
+          "Hodge Hill"
+        ]
+      },
+      "Coventry (Metropolitan Borough)": {
+        "Coventry": [
+          "Foleshill",
+          "Longford",
+          "Bell Green",
+          "Tile Hill",
+          "Wyken",
+          "Stoke",
+          "Cheylesmore"
+        ]
+      },
+      "Dudley (Metropolitan Borough)": {
+        "Dudley": [
+          "Brierley Hill"
+        ]
+      },
+      "Sandwell (Metropolitan Borough)": {
+        "West Bromwich": [],
+        "Oldbury": [],
+        "Smethwick": [],
+        "Tipton": [],
+        "Wednesbury": [],
+        "Rowley Regis": []
+      },
+      "Walsall (Metropolitan Borough)": {
+        "Walsall": [
+          "Willenhall",
+          "Bloxwich",
+          "Aldridge"
+        ]
+      },
+      "Wolverhampton (Metropolitan Borough)": {
+        "Wolverhampton": [
+          "Bilston",
+          "Wednesfield"
+        ]
+      },
+      "Solihull (Metropolitan Borough)": {
+        "Solihull": [
+          "Shirley",
+          "Olton",
+          "Chelmsley Wood",
+          "Smith's Wood"
+        ]
+      }
+    },
+    "East Midlands": {
+      "Derbyshire": {
+        "Derby": [],
+        "Chesterfield": [],
+        "Matlock": [],
+        "Buxton": [],
+        "Ilkeston": [],
+        "Dronfield": [],
+        "Glossop": []
+      },
+      "Leicestershire": {
+        "Leicester": [],
+        "Loughborough": [],
+        "Hinckley": [],
+        "Market Harborough": [],
+        "Lutterworth": [],
+        "Oadby": [],
+        "Wigston": [],
+        "Coalville": []
+      },
+      "Nottinghamshire": {
+        "Nottingham": [
+          "Beeston",
+          "Arnold",
+          "Carlton",
+          "West Bridgford"
+        ],
+        "Mansfield": [],
+        "Worksop": [],
+        "Newark-on-Trent": [],
+        "Retford": [],
+        "Kirkby-in-Ashfield": [],
+        "Sutton-in-Ashfield": []
+      },
+      "Lincolnshire": {
+        "Lincoln": [],
+        "Grantham": [],
+        "Boston": [],
+        "Skegness": [],
+        "Sleaford": [],
+        "Stamford": [],
+        "Spalding": [],
+        "Mablethorpe": [],
+        "Market Rasen": [],
+        "Louth": [],
+        "Bourne": []
+      },
+      "Northamptonshire": {
+        "Northampton": [],
+        "Kettering": [],
+        "Corby": [],
+        "Wellingborough": [],
+        "Rushden": [],
+        "Daventry": [],
+        "Oundle": []
+      },
+      "Rutland (Unitary)": {
+        "Oakham": [],
+        "Uppingham": []
+      }
+    },
+    "South East": {
+      "Oxfordshire": {
+        "Oxford": [],
+        "Banbury": [],
+        "Bicester": [],
+        "Kidlington": [],
+        "Chipping Norton": [],
+        "Witney": [],
+        "Abingdon": [],
+        "Didcot": [],
+        "Carterton": []
+      },
+      "Buckinghamshire": {
+        "Aylesbury": [],
+        "High Wycombe": [],
+        "Amersham": [],
+        "Beaconsfield": [],
+        "Buckingham": [],
+        "Marlow": [],
+        "Milton Keynes (Unitary)": {
+          "Milton Keynes": [
+            "Bletchley",
+            "Stony Stratford",
+            "Wolverton"
+          ]
+        }
+      },
+      "Berkshire": {
+        "Reading": [],
+        "Wokingham": [],
+        "Bracknell": [],
+        "Slough": [],
+        "Windsor": [],
+        "Maidenhead": [],
+        "Newbury": []
+      },
+      "Hampshire": {
+        "Southampton (Unitary)": {
+          "Southampton": []
+        },
+        "Portsmouth (Unitary)": {
+          "Portsmouth": []
+        },
+        "Winchester": [],
+        "Basingstoke": [],
+        "Andover": [],
+        "Fareham": [],
+        "Gosport": [],
+        "Aldershot": [],
+        "Farnborough": [],
+        "Lymington": [],
+        "Petersfield": [],
+        "Ringwood": [],
+        "Waterlooville": []
+      },
+      "Surrey": {
+        "Guildford": [],
+        "Woking": [],
+        "Epsom": [],
+        "Ewell": [],
+        "Farnham": [],
+        "Godalming": [],
+        "Leatherhead": [],
+        "Camberley": [],
+        "Walton-on-Thames": []
+      },
+      "Kent": {
+        "Maidstone": [],
+        "Canterbury": [],
+        "Ashford": [],
+        "Dartford": [],
+        "Gravesend": [],
+        "Sevenoaks": [],
+        "Tonbridge": [],
+        "Tunbridge Wells": [],
+        "Folkestone": [],
+        "Dover": [],
+        "Ramsgate": [],
+        "Margate": [],
+        "Sittingbourne": []
+      },
+      "East Sussex": {
+        "Brighton and Hove (Unitary)": {
+          "Brighton": [
+            "Kemptown",
+            "Hove",
+            "Patcham"
+          ],
+          "Hove": []
+        },
+        "Eastbourne": [],
+        "Hastings": [],
+        "Lewes": []
+      },
+      "West Sussex": {
+        "Chichester": [],
+        "Crawley": [],
+        "Horsham": [],
+        "Worthing": [],
+        "Bognor Regis": [],
+        "Littlehampton": []
+      },
+      "Isle of Wight (Unitary)": {
+        "Isle of Wight": [
+          "Ryde",
+          "Newport",
+          "Cowes",
+          "Sandown",
+          "Shanklin"
+        ]
+      }
+    },
+    "London": {
+      "Greater London (Region)": {
+        "London": [
+          "Westminster",
+          "Bloomsbury",
+          "Covent Garden",
+          "Holborn",
+          "Fitzrovia",
+          "Islington",
+          "Angel",
+          "Clerkenwell",
+          "Highbury",
+          "Holloway",
+          "Archway",
+          "Tufnell Park",
+          "Finsbury",
+          "Finsbury Park",
+          "Crouch End",
+          "Muswell Hill",
+          "Hornsey",
+          "Highgate",
+          "Tottenham",
+          "Tottenham Hale",
+          "Tottenham Green",
+          "Edmonton",
+          "Enfield",
+          "Enfield Town",
+          "Enfield Lock",
+          "Enfield Wash",
+          "Southgate",
+          "Winchmore Hill",
+          "Friern Barnet",
+          "Whetstone",
+          "Totteridge",
+          "Brent Cross",
+          "Neasden",
+          "Kilburn",
+          "Cricklewood",
+          "Willesden",
+          "Dollis Hill",
+          "Hackney",
+          "Hackney Wick",
+          "Haggerston",
+          "Hoxton",
+          "Shoreditch",
+          "Dalston",
+          "Stamford Hill",
+          "Homerton",
+          "De Beauvoir Town",
+          "Bethnal Green",
+          "Bow",
+          "Mile End",
+          "Limehouse",
+          "Poplar",
+          "Blackwall",
+          "Canary Wharf",
+          "Isle of Dogs",
+          "Cubitt Town",
+          "Leamouth",
+          "Canning Town",
+          "Custom House",
+          "Forest Gate",
+          "Stratford",
+          "West Ham",
+          "East Ham",
+          "Upton Park",
+          "Manor Park",
+          "Ilford",
+          "Seven Kings",
+          "Goodmayes",
+          "Chadwell Heath",
+          "Barking",
+          "Barkingside",
+          "Dagenham",
+          "Becontree",
+          "Becontree Heath",
+          "Creekmouth",
+          "Walthamstow",
+          "Walthamstow Village",
+          "Highams Park",
+          "Chingford",
+          "Leyton",
+          "Leytonstone",
+          "South Woodford",
+          "Woodford",
+          "Woodford Green",
+          "Greenwich",
+          "North Greenwich",
+          "Charlton",
+          "Blackheath",
+          "Deptford",
+          "Lewisham",
+          "Hither Green",
+          "Catford",
+          "Brockley",
+          "Honor Oak",
+          "New Cross",
+          "Peckham",
+          "Nunhead",
+          "Camberwell",
+          "Walworth",
+          "Elephant and Castle",
+          "Bermondsey",
+          "Rotherhithe",
+          "Canada Water",
+          "Surrey Quays",
+          "Woolwich",
+          "Eltham",
+          "Mottingham",
+          "Grove Park",
+          "Lee",
+          "Kidbrooke",
+          "Plumstead",
+          "Thamesmead",
+          "Erith",
+          "Bexleyheath",
+          "Bexley",
+          "Sidcup",
+          "Welling",
+          "Belvedere",
+          "Crayford",
+          "Foots Cray",
+          "St Mary Cray",
+          "St Paul's Cray",
+          "Orpington",
+          "Petts Wood",
+          "Chislehurst",
+          "Bromley",
+          "Bromley Common",
+          "Keston",
+          "Beckenham",
+          "Penge",
+          "Anerley",
+          "Crystal Palace",
+          "Sydenham",
+          "Sydenham Hill",
+          "Dulwich",
+          "East Dulwich",
+          "Forest Hill",
+          "Herne Hill",
+          "Denmark Hill",
+          "Southwark",
+          "Southfields",
+          "Tooting",
+          "Tooting Bec",
+          "Balham",
+          "Clapham",
+          "Battersea",
+          "Wandsworth",
+          "Putney",
+          "Roehampton",
+          "Earlsfield",
+          "Hammersmith",
+          "Fulham",
+          "West Kensington",
+          "Parsons Green",
+          "Shepherds Bush",
+          "Holland Park",
+          "Kensington",
+          "South Kensington",
+          "Chelsea",
+          "Notting Hill",
+          "Bayswater",
+          "Paddington",
+          "Maida Vale",
+          "Chiswick",
+          "Acton",
+          "Ealing",
+          "West Ealing",
+          "Hanwell",
+          "Greenford",
+          "Perivale",
+          "Northolt",
+          "Southall",
+          "Hounslow",
+          "Isleworth",
+          "Brentford",
+          "Gunnersbury",
+          "Kew",
+          "Richmond",
+          "Twickenham",
+          "Teddington",
+          "Hampton",
+          "Hampton Hill",
+          "Hampton Wick",
+          "Whitton",
+          "Feltham",
+          "Hatton",
+          "Hayes",
+          "Harlington",
+          "Uxbridge",
+          "Ickenham",
+          "Ruislip",
+          "Pinner",
+          "Eastcote",
+          "Northwood",
+          "Harrow",
+          "Harrow on the Hill",
+          "Wealdstone",
+          "Stanmore",
+          "Edgware",
+          "Colindale",
+          "Burnt Oak",
+          "Mill Hill",
+          "Kingsbury",
+          "Queensbury",
+          "Wembley Park",
+          "Tokyngton",
+          "Alperton",
+          "Sudbury",
+          "North Wembley"
+        ]
+      }
+    },
+    "North West": {
+      "Greater Manchester (Metropolitan County)": {
+        "Manchester": [
+          "Manchester City Centre",
+          "Ancoats",
+          "Hulme",
+          "Moss Side",
+          "Ardwick",
+          "Ardwick Green",
+          "Chorlton-on-Medlock",
+          "Chorlton-cum-Hardy",
+          "Didsbury",
+          "Withington",
+          "Fallowfield",
+          "Burnage",
+          "Levenshulme",
+          "Longsight",
+          "Rusholme",
+          "Ladybarn",
+          "Gorton",
+          "Openshaw",
+          "Bradford-with-Beswick",
+          "Miles Platting",
+          "Newton Heath",
+          "Moston",
+          "New Moston",
+          "Blackley",
+          "Crumpsall",
+          "Cheetham Hill",
+          "Harpurhey"
+        ],
+        "Salford": [
+          "Ordsall",
+          "Pendleton",
+          "Eccles"
+        ],
+        "Trafford": [
+          "Trafford Park",
+          "Stretford",
+          "Sale",
+          "Altrincham"
+        ],
+        "Stockport": [],
+        "Tameside": [
+          "Ashton-under-Lyne"
+        ],
+        "Oldham": [],
+        "Rochdale": []
+      },
+      "Merseyside": {
+        "Liverpool": [],
+        "Wirral": [
+          "Birkenhead",
+          "Wallasey"
+        ],
+        "Sefton": [
+          "Southport",
+          "Bootle"
+        ],
+        "St Helens": [],
+        "Knowsley": []
+      },
+      "Lancashire": {
+        "Preston": [],
+        "Lancaster": [],
+        "Blackpool": [],
+        "Blackburn": [],
+        "Burnley": [],
+        "Accrington": [],
+        "Chorley": []
+      }
+    },
+    "Yorkshire and the Humber": {
+      "West Yorkshire": {
+        "Leeds": [],
+        "Bradford": [],
+        "Wakefield": []
+      },
+      "South Yorkshire": {
+        "Sheffield": [],
+        "Doncaster": [],
+        "Rotherham": []
+      },
+      "East Riding of Yorkshire": {
+        "Kingston upon Hull": [
+          "Hull"
+        ],
+        "Beverley": [],
+        "Bridlington": [],
+        "Goole": []
+      },
+      "North Yorkshire": {
+        "York": [],
+        "Harrogate": [],
+        "Scarborough": []
+      }
+    },
+    "East of England": {
+      "Cambridgeshire": {
+        "Cambridge": [],
+        "Ely": [],
+        "Huntingdon": [],
+        "St Neots": [],
+        "Peterborough (Unitary)": {
+          "Peterborough": []
+        },
+        "March": [],
+        "Chatteris": []
+      },
+      "Essex": {
+        "Chelmsford": [],
+        "Colchester": [],
+        "Harlow": [],
+        "Brentwood": [],
+        "Braintree": [],
+        "Basildon": []
+      },
+      "Hertfordshire": {
+        "Watford": [],
+        "St Albans": [],
+        "Stevenage": [],
+        "Hemel Hempstead": [],
+        "Hatfield": []
+      },
+      "Suffolk": {
+        "Ipswich": [],
+        "Bury St Edmunds": [],
+        "Lowestoft": [],
+        "Felixstowe": []
+      },
+      "Norfolk": {
+        "Norwich": [],
+        "King’s Lynn": [],
+        "Great Yarmouth": []
+      }
+    },
+    "South West": {
+      "Gloucestershire": {
+        "Gloucester": [],
+        "Cheltenham": [],
+        "Cirencester": []
+      },
+      "Wiltshire": {
+        "Swindon (Unitary)": {
+          "Swindon": [
+            "West Swindon",
+            "Eastbrook",
+            "Wichelstowe",
+            "Haydon Wick"
+          ]
+        },
+        "Salisbury": [],
+        "Chippenham": [],
+        "Trowbridge": [],
+        "Royal Wootton Bassett": [],
+        "Marlborough": []
+      },
+      "Somerset": {
+        "Bath and North East Somerset (Unitary)": {
+          "Bath": []
+        },
+        "Bristol (Unitary)": {
+          "Bristol": [
+            "Clifton",
+            "Temple Meads",
+            "Bedminster",
+            "Stokes Croft",
+            "Redland"
+          ]
+        },
+        "Taunton": [],
+        "Yeovil": []
+      },
+      "Devon": {
+        "Exeter": [],
+        "Plymouth (Unitary)": {
+          "Plymouth": []
+        },
+        "Torbay (Unitary)": {
+          "Torquay": [],
+          "Paignton": [],
+          "Brixham": []
+        },
+        "Barnstaple": [],
+        "Tiverton": []
+      },
+      "Dorset (Unitary)": {
+        "Bournemouth, Christchurch and Poole (BCP)": {
+          "Bournemouth": [],
+          "Poole": [],
+          "Christchurch": []
+        },
+        "Weymouth": [],
+        "Dorchester": []
+      }
+    },
+    "North East": {
+      "Tyne and Wear": {
+        "Newcastle upon Tyne": [],
+        "Gateshead": [],
+        "Sunderland": [],
+        "North Shields": []
+      },
+      "County Durham (Unitary)": {
+        "Durham": [],
+        "Hartlepool (Unitary)": {
+          "Hartlepool": []
+        },
+        "Darlington (Unitary)": {
+          "Darlington": []
+        },
+        "Peterlee": []
+      },
+      "Northumberland (Unitary)": {
+        "Morpeth": [],
+        "Alnwick": [],
+        "Berwick-upon-Tweed": []
+      }
+    },
+    "North": {
+      "Cumbria (Unitary)": {
+        "Carlisle": [],
+        "Kendal": [],
+        "Barrow-in-Furness": []
+      }
+    },
+    "Wales": {
+      "Cardiff (Principal Area)": {
+        "Cardiff": [
+          "Cardiff Docks",
+          "Butetown",
+          "Bute Park",
+          "Grangetown",
+          "Pontcanna",
+          "Riverside",
+          "Canton",
+          "Adamsdown",
+          "Cathays",
+          "Roath",
+          "Splott",
+          "Tremorfa",
+          "Leckwith",
+          "Leckwith Moors",
+          "Llandaff",
+          "Llanedeyrn",
+          "Llanishen",
+          "Whitchurch",
+          "St Fagans",
+          "Ninian Park",
+          "Radyr",
+          "Mynachdy",
+          "Maindy"
+        ]
+      },
+      "Swansea (Principal Area)": {
+        "Swansea": [
+          "Morriston",
+          "Clydach",
+          "Mayhill",
+          "Townhill",
+          "Brynmill",
+          "Uplands",
+          "Plasmarl",
+          "Llansamlet",
+          "Landore",
+          "St Thomas",
+          "Cockett",
+          "Waunarlwydd",
+          "Mynydd Du",
+          "Gorseinon",
+          "Gowerton",
+          "Loughor",
+          "Pontarddulais",
+          "Penllergaer",
+          "Penlan",
+          "Penderry",
+          "Tre-boeth",
+          "Cwmbwrla",
+          "Tircoed Forest Village",
+          "Fforest-fach"
+        ]
+      },
+      "Newport (Principal Area)": {
+        "Newport": []
+      },
+      "Rhondda Cynon Taf": {
+        "Aberdare": [
+          "Cwmdare",
+          "Llwydcoed",
+          "Hirwaun",
+          "Cwmbach"
+        ],
+        "Mountain Ash": [
+          "Penrhiwceiber",
+          "Abercwmboi"
+        ],
+        "Pontypridd": [
+          "Treharris",
+          "Treherbert",
+          "Tonypandy",
+          "Treorchy",
+          "Porth"
+        ]
+      },
+      "Wrexham": {
+        "Wrexham": [
+          "Rhosllanerchrugog",
+          "Ruabon",
+          "Rhosymedre",
+          "Johnstown",
+          "Coedpoeth",
+          "Cefn-mawr",
+          "Cefn-brith",
+          "Cefn Stylle",
+          "Cymau",
+          "Gwersyllt",
+          "Rhos-y-mawn",
+          "Pentre Bychan",
+          "Pentre Saron",
+          "Penycae",
+          "Bwlchymynydd",
+          "Graianrhyd",
+          "Gwyddelwern",
+          "Llidiart-y-Parc",
+          "Trevor",
+          "Pont-y-blew"
+        ]
+      }
+    },
+    "Scotland": {
+      "Glasgow City": {
+        "Glasgow": [
+          "Glasgow City Centre",
+          "Govan",
+          "Partick",
+          "Pollokshields",
+          "Springburn"
+        ]
+      },
+      "City of Edinburgh": {
+        "Edinburgh": [
+          "Leith",
+          "Old Town",
+          "New Town",
+          "Dalry",
+          "Gorgie"
+        ]
+      },
+      "Aberdeenshire": {
+        "Inverurie": [],
+        "Peterhead": [],
+        "Fraserburgh": []
+      },
+      "Aberdeen City": {
+        "Aberdeen": []
+      },
+      "Dundee City": {
+        "Dundee": []
+      },
+      "Fife": {
+        "Kirkcaldy": [],
+        "Dunfermline": [],
+        "Glenrothes": []
+      },
+      "Highland": {
+        "Inverness": [],
+        "Fort William": [],
+        "Nairn": [],
+        "Wick": []
+      },
+      "West Lothian": {
+        "Livingston": [],
+        "Broxburn": []
+      },
+      "Renfrewshire": {
+        "Paisley": [],
+        "Johnstone": []
+      }
+    },
+    "Northern Ireland": {
+      "Belfast": {
+        "Belfast": []
+      },
+      "Derry and Strabane": {
+        "Derry": []
+      },
+      "Ards and North Down": {
+        "Bangor": []
+      }
+    }
+  }
+}
