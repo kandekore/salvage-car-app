@@ -77,7 +77,7 @@ const MotFailuresPage = () => {
         <div>
             <Helmet>
                 <title>Sell Your MOT Failure | Get a Quote for a Failed MOT Car</title>
-                <meta name="description" content="Car failed its MOT? Don't pay for expensive repairs. We buy any MOT failure for a great salvage price. Get your free, instant quote now!" />
+                <meta name="description" content="Car failed its MOT? Don't pay for expensive repairs. We buy any MOT failure for a great salvage price. Get your free, salvage quote now!" />
                 <meta property="og:title" content="Sell Your MOT Failure | Get a Quote for a Failed MOT Car" />
             </Helmet>
 

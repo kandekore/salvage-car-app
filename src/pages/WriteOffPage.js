@@ -117,7 +117,7 @@ const WriteOffPage = () => {
             <ContentSection
                 icon="fa-solid fa-sterling-sign"
                 title="Beat Your Insurer's Buy-Back Offer"
-                text="When your car is written off, your insurer will make you an offer. You have the option to 'buy back' the car and sell it on yourself. In most cases, our instant online quote will be significantly higher than what you'd be left with from the insurance payout. Enter your registration to see how much more you could get from a salvage specialist."
+                text="When your car is written off, your insurer will make you an offer. You have the option to 'buy back' the car and sell it on yourself. In most cases, our online salvage quote will be significantly higher than what you'd be left with from the insurance payout. Enter your registration to see how much more you could get from a salvage specialist."
                 image={valueImage}
                 textPosition="right"
                 buttonText="Get a Better Price"

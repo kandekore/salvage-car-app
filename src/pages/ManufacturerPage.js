@@ -8,8 +8,8 @@ import ContentSection from '../components/ContentSection';
 import brandHeroImage from '../assets/images/brand.jpg';
 
 // Added missing image imports for the content sections
-import writeOffImage from '../assets/images/write-off.jpg';
-import modelsImage from '../assets/images/accident-damage.jpg'; // Using another image as a placeholder
+import writeOffImage from '../assets/images/handshake.jpg';
+import modelsImage from '../assets/images/mway.jpg'; // Using another image as a placeholder
 
 const ManufacturerPage = () => {
     const { slug } = useParams();
@@ -99,7 +99,7 @@ const ManufacturerPage = () => {
 
             <Hero
                 title={`Sell Your Salvage ${brand}`}
-                subtitle={`Instant quotes for any damaged, non-running, or written-off ${brand}.`}
+                subtitle={`Salvage ${brand} quotes for any damaged, non-running, or written-off ${brand}.`}
                 image={brandHeroImage}
                 logo={logo_url}
                 step={step}
@@ -137,7 +137,7 @@ const ManufacturerPage = () => {
                 text={<div dangerouslySetInnerHTML={{ __html: salvage_info_html }} />}
                 image={writeOffImage}
                 textPosition="right"
-                buttonText="Get an Instant Quote"
+                buttonText="Get a Salvage Quote"
                 linkTo="/"
             />
         </div>

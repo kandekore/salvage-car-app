@@ -98,7 +98,7 @@ const MechanicalFailurePage = () => {
             <ContentSection
                 icon="fa-solid fa-engine-warning" // Pro icon, make sure your kit supports it
                 title="Seized Engine or Blown Head Gasket?"
-                text="An engine failure is one of the most expensive problems a car owner can face. The cost of a replacement engine or a head gasket repair can easily be more than the car is worth. Instead of facing a huge garage bill, get an instant quote from us. We value the working components of your car, guaranteeing you a fair price."
+                text="An engine failure is one of the most expensive problems a car owner can face. The cost of a replacement engine or a head gasket repair can easily be more than the car is worth. Instead of facing a huge garage bill, get a salvage quote from us. We value the working components of your car, guaranteeing you a fair price."
                 image={engineImage}
                 textPosition="right"
                 buttonText="Value My Non-Running Car"

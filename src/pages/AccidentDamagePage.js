@@ -74,9 +74,9 @@ const AccidentDamagePage = () => {
     return (
         <div>
             <Helmet>
-                <title>Sell Accident Damaged Car | Instant Salvage Quote</title>
+                <title>Sell Accident Damaged Car | Salvage Vehicle Quote</title>
                 <meta name="description" content="Sell your accident damaged car hassle-free. We buy vehicles with any level of damage, from minor dents to major collision impact. Get your free quote today." />
-                <meta property="og:title" content="Sell Accident Damaged Car | Instant Salvage Quote" />
+                <meta property="og:title" content="Sell Accident Damaged Car | Salvage vehicle Quote" />
             </Helmet>
 
             <Hero
@@ -115,7 +115,7 @@ const AccidentDamagePage = () => {
             <ContentSection
                 icon="fa-solid fa-star"
                 title="The Simple Alternative to Private Sales"
-                text="Why deal with the hassle of endless viewings, time-wasters, and hagglers who will pick apart every scratch? Our process is simple: get an instant online quote, accept the offer, and we'll collect the car for free and pay you on the spot. It's the easiest way to sell an accident damaged car."
+                text="Why deal with the hassle of endless viewings, time-wasters, and hagglers who will pick apart every scratch? Our process is simple: get an online quote, accept the offer, and we'll collect the car for free and pay you on the spot. It's the easiest way to sell an accident damaged car."
                 image={simpleProcessImage}
                 textPosition="right"
                 buttonText="Start My Easy Quote"

@@ -86,7 +86,7 @@ const HomePage = () => {
         <div>
             <Helmet>
                 <title>Car Salvage Experts - Get the Best Price for Your Damaged Car</title>
-                <meta name="description" content="We buy any salvage car, including MOT failures, insurance write-offs, accident damaged, and cars with mechanical issues. Get a free, instant online quote today!" />
+                <meta name="description" content="We buy any salvage car, including MOT failures, insurance write-offs, accident damaged, and cars with mechanical issues. Get a free, online salvage quote today!" />
                 <meta property="og:title" content="Car Salvage Experts - Get the Best Price for Your Damaged Car" />
                 <meta property="og:description" content="Turn your damaged or unwanted car into cash. We connect you with a nationwide network of salvage buyers for the best possible price." />
                 <meta property="og:image" content={heroBackgroundImage} />

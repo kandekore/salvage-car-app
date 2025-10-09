@@ -2,9 +2,7 @@ import React from 'react';
 import { Container, Accordion, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-// CORRECTED IMPORT: Use the new function
 import { getAllManufacturersForModelsList } from '../utils/vehicleData';
-import defaultImage from '../assets/images/logodrk.png';
 
 
 const ModelsListPage = () => {
