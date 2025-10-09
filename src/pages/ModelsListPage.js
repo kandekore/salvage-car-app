@@ -1,10 +1,16 @@
 import React from 'react';
-import { Container, Accordion, Button } from 'react-bootstrap'; // Import Button
+import { Container, Accordion, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { allManufacturers } from '../utils/vehicleData';
+// CORRECTED IMPORT: Use the new function
+import { getAllManufacturersForModelsList } from '../utils/vehicleData';
+import defaultImage from '../assets/images/logodrk.png';
+
 
 const ModelsListPage = () => {
+    // Use the new function to get all manufacturers
+    const allManufacturersForPage = getAllManufacturersForModelsList();
+
     return (
         <div>
             <Helmet>
@@ -17,16 +23,20 @@ const ModelsListPage = () => {
                     Below is a list of all car manufacturers and their popular models that we frequently buy for salvage.
                 </p>
                 <Accordion>
-                    {allManufacturers.sort((a, b) => a.brand.localeCompare(b.brand)).map((manufacturer, index) => (
+                    {allManufacturersForPage.sort((a, b) => a.brand.localeCompare(b.brand)).map((manufacturer, index) => (
                         <Accordion.Item eventKey={String(index)} key={manufacturer.slug}>
                             <Accordion.Header>
-                                <img src={manufacturer.logo_url} alt={`${manufacturer.brand} Logo`} style={{ height: '30px', marginRight: '15px' }} />
+                                {/* Conditionally render the logo */}
+                                {manufacturer.logo_url !== '/path/to/default/logo.png' &&
+                                    <img src={manufacturer.logo_url} alt={`${manufacturer.brand} Logo`} style={{ height: '30px', marginRight: '15px' }} />
+                                }
                                 {manufacturer.brand}
                             </Accordion.Header>
                             <Accordion.Body>
                                 <p>{manufacturer.models_overview}</p>
-                                <p><strong>Popular Models:</strong> {manufacturer.popular_models.join(', ')}</p>
-                                {/* CORRECTED BUTTON LINK */}
+                                {manufacturer.popular_models.length > 0 &&
+                                    <p><strong>Popular Models:</strong> {manufacturer.popular_models.join(', ')}</p>
+                                }
                                 <Button as={Link} to={`/manufacturer/${manufacturer.slug}/models`} variant="primary">
                                     View All {manufacturer.brand} Models
                                 </Button>

@@ -81,7 +81,7 @@ const MechanicalFailurePage = () => {
             </Helmet>
 
             <Hero
-                title="Major Mechanical Failure?"
+                title="Sell Your Car with a Mechanical Failure"
                 subtitle="A seized engine or broken gearbox doesn't mean your car is worthless. Get a top salvage price today."
                 image={heroImage}
                 step={step}

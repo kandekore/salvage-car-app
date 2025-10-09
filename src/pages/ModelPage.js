@@ -5,11 +5,25 @@ import { Container, Table, Row, Col, Breadcrumb } from 'react-bootstrap';
 import { findVehicleByVariantSlug, findManufacturerBySlug } from '../utils/vehicleData';
 import Hero from '../components/Hero';
 import heroBackgroundImage from '../assets/images/drkbgd.jpg';
+import defaultImage from '../assets/images/logodrk.png';
 
 const ModelPage = () => {
     const { make, model, variantSlug } = useParams();
     const vehicle = findVehicleByVariantSlug(make, model, variantSlug);
-    const manufacturer = findManufacturerBySlug(make);
+    let manufacturer = findManufacturerBySlug(make);
+
+
+    // --- THIS IS THE FIX ---
+    // If the manufacturer isn't in the curated list, create a basic fallback object.
+    if (!manufacturer && vehicle) { // Also check if vehicle exists to get the proper name
+        manufacturer = {
+            slug: make,
+            brand: vehicle.make, // Get the correctly capitalized name from the vehicle data
+            logo_url: defaultImage,
+            history: `Information about ${vehicle.make} is coming soon.`,
+        };
+    }
+    // --
 
     // --- State and handlers for the quote form ---
     const [step, setStep] = useState(1);

@@ -82,7 +82,7 @@ const MotFailuresPage = () => {
             </Helmet>
 
             <Hero
-                title="Car Failed Its MOT?"
+                title="Sell Your MOT Failure for Salvage or Scrap"
                 subtitle="Don't worry about expensive repairs. Turn your MOT failure into cash today."
                 image={heroImage}
                 step={step}

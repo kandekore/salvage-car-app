@@ -3,18 +3,38 @@ import { useParams, Link } from 'react-router-dom';
 import { Container, Accordion, ListGroup, Breadcrumb } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { getGroupedModelsByMake, findManufacturerBySlug } from '../utils/vehicleData';
+import defaultImage from '../assets/images/logodrk.png';
 
 const ModelsByManufacturerPage = () => {
-    const { slug } = useParams(); // CORRECTED: Changed from 'make' to 'slug' to match the route
+    const { slug } = useParams();
     const models = getGroupedModelsByMake(slug);
-    const manufacturer = findManufacturerBySlug(slug);
+    let manufacturer = findManufacturerBySlug(slug);
 
+    // --- THIS IS THE FIX ---
+    // If the manufacturer isn't in the curated list, create a basic object for it.
     if (!manufacturer) {
+        // Create a user-friendly brand name from the slug (e.g., "alfa-romeo" -> "Alfa Romeo")
+        const brandName = slug
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+
+        manufacturer = {
+            slug: slug,
+            brand: brandName,
+            logo_url: defaultImage, // A default path
+            history: `Information about ${brandName} is coming soon.`,
+        };
+    }
+    // --- END OF FIX ---
+
+    // This check is now safe because 'manufacturer' will always be an object.
+    if (!models || models.length === 0) {
         return (
             <Container className="text-center py-5">
-                <h1>404 - Manufacturer Not Found</h1>
-                <p>Sorry, we couldn't find the manufacturer you're looking for.</p>
-                <Link to="/manufacturers">Browse all manufacturers.</Link>
+                <h1>No Models Found</h1>
+                <p>Sorry, we couldn't find any models for this manufacturer.</p>
+                <Link to="/models">Return to models list.</Link>
             </Container>
         );
     }

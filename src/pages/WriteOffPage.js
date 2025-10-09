@@ -82,7 +82,7 @@ const WriteOffPage = () => {
             </Helmet>
 
             <Hero
-                title="Insurance Write-Off?"
+                title="Sell Your Insurance Write-Off for Salvage or Scrap"
                 subtitle="Don't accept a low offer. Get a better price for your Cat S or Cat N vehicle from a salvage specialist."
                 image={heroImage}
                 step={step}
