@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { allLocations } from '../utils/locationData';
 
 const AreasPage = () => {
-  // Group locations by their region for a structured list
   const groupedLocations = allLocations.reduce((acc, loc) => {
     const region = loc.level === 1 ? loc.name : loc.parents[0];
     if (!acc[region]) {
@@ -14,6 +13,17 @@ const AreasPage = () => {
     acc[region].push(loc);
     return acc;
   }, {});
+
+  // Define a helper to get the correct label
+  const getLevelLabel = (level) => {
+    switch (level) {
+      case 1: return 'Region';
+      case 2: return 'County';
+      case 3: return 'City/Town';
+      case 4: return 'District';
+      default: return '';
+    }
+  };
 
   return (
     <div>
@@ -33,7 +43,7 @@ const AreasPage = () => {
               <ListGroup>
                 {groupedLocations[region].sort((a,b) => a.name.localeCompare(b.name)).map(loc => (
                   <ListGroup.Item key={loc.path} action as={Link} to={loc.path}>
-                    {loc.name} <small className="text-muted">({loc.level === 2 ? 'County' : loc.level === 3 ? 'City' : 'Region'})</small>
+                    {loc.name} <small className="text-muted">({getLevelLabel(loc.level)})</small>
                   </ListGroup.Item>
                 ))}
               </ListGroup>

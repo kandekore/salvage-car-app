@@ -18,17 +18,75 @@ const LocationPage = () => {
     const location = findLocationByPath(params);
 
     const [step, setStep] = useState(1);
-    const [vehicleData, setVehicleData] = useState(null);
-    const [formData, setFormData] = useState({});
-    const [error, setError] = useState('');
-    const [apiResponse, setApiResponse] = useState('');
-    
-    // NOTE: Make sure you copy the full implementations of these handler functions from your other pages
-    const handleSearch = async ({ registration, postcode }) => { /* ... full implementation ... */ };
-    const handleConfirm = () => { /* ... full implementation ... */ };
-    const handleReject = () => { /* ... full implementation ... */ };
-    const handleManualSubmit = (manualVehicleDetails) => { /* ... full implementation ... */ };
-    const handleUserDetailsSubmit = async (userDetails) => { /* ... full implementation ... */ };
+      const [vehicleData, setVehicleData] = useState(null);
+      const [formData, setFormData] = useState({});
+      const [error, setError] = useState('');
+      const [apiResponse, setApiResponse] = useState('');
+  
+      const handleSearch = async ({ registration, postcode }) => {
+          setStep(2);
+          setError('');
+          setFormData({ registration, postcode });
+  
+          try {
+              const res = await fetch('http://localhost:5001/api/vehicle-data', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ registration }),
+              });
+  
+              if (!res.ok) {
+                  const errorData = await res.json();
+                  throw new Error(errorData.message || 'Vehicle not found');
+              }
+              const data = await res.json();
+              setVehicleData(data);
+              setStep(3);
+          } catch (err) {
+              setError(err.message);
+              setStep(4);
+          }
+      };
+  
+      const handleConfirm = () => {
+          setFormData({ ...formData, ...vehicleData });
+          setStep(5);
+      };
+      
+      const handleReject = () => {
+          setVehicleData(null);
+          setStep(1);
+      };
+  
+      const handleManualSubmit = (manualVehicleDetails) => {
+          setFormData({ ...formData, ...manualVehicleDetails });
+          setStep(5);
+      };
+  
+      const handleUserDetailsSubmit = async (userDetails) => {
+          const finalData = { ...formData, ...userDetails };
+          try {
+              const res = await fetch('http://localhost:5001/api/submit-lead', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(finalData),
+              });
+              if (!res.ok) throw new Error((await res.json()).message);
+  
+              const result = await res.json();
+              setApiResponse(result.message);
+  
+              setTimeout(() => {
+                  setStep(1);
+                  setVehicleData(null);
+                  setApiResponse('');
+              }, 5000);
+          } catch (err) {
+              setError(err.message);
+          }
+      };
+  
+  
 
     if (!location) {
         return (
@@ -59,7 +117,7 @@ const LocationPage = () => {
                             <Col md={6}>
                                 <h2>Complete Coverage Across {name}</h2>
                                 <p className="lead">Our extensive network of salvage agents operates throughout the {name} region, ensuring we can offer a fast, free, and convenient service no matter where you are.</p>
-                                <p>We are actively buying cars in all major counties and cities, including prominent areas like **{children.join(', ')}**, and many more. Whether you have an MOT failure in a busy city centre or a non-runner in a quiet village, our local teams are ready to provide a top-price quote. We understand the local market in {name}, allowing us to value your car's parts accurately. This means we consistently offer better prices than scrap-only yards.</p>
+                                <p>We are actively buying cars in all major counties and cities, including prominent areas like {children.join(', ')}, and many more. Whether you have an MOT failure in a busy city centre or a non-runner in a quiet village, our local teams are ready to provide a top-price quote. We understand the local market in {name}, allowing us to value your car's parts accurately. This means we consistently offer better prices than scrap-only yards.</p>
                             </Col>
                              <Col md={6}>
                                 <h3>Areas We Cover in {name}</h3>
@@ -86,14 +144,14 @@ const LocationPage = () => {
                 </Helmet>
                 <Hero title={`Salvage Car Buyers in ${name}`} subtitle={`Serving all of ${name} from our local bases within the ${parents[0]} region.`} image={writeOffImage} step={step} vehicleData={vehicleData} error={error} apiResponse={apiResponse} onSearch={handleSearch} onConfirm={handleConfirm} onReject={handleReject} onManualSubmit={handleManualSubmit} onUserDetailsSubmit={handleUserDetailsSubmit} />
                 
-                <ContentSection icon="fa-solid fa-car-burst" title={`Your Local Experts for ${name}`} text={`If you're looking to sell a car for salvage in ${name}, you've come to the right place. As a key county within the ${parents[0]} region, ${name} is an area we know well. Our local agents are familiar with all the major towns, including **${children.slice(0, 4).join(', ')}**. This local knowledge means we can arrange collection faster and more efficiently than anyone else. Whether you have an insurance write-off that needs collecting from a garage or a car with a mechanical failure sitting on your driveway, we provide a seamless service. We are a network of local professionals dedicated to serving the ${name} community.`} image={accidentDamageImage} textPosition="left" buttonText={`Get My ${name} Quote`} linkTo="/" />
+                <ContentSection icon="fa-solid fa-car-burst" title={`Your Local Experts for ${name}`} text={`If you're looking to sell a car for salvage in ${name}, you've come to the right place. As a key county within the ${parents[0]} region, ${name} is an area we know well. Our local agents are familiar with all the major towns, including ${children.slice(0, 4).join(', ')}. This local knowledge means we can arrange collection faster and more efficiently than anyone else. Whether you have an insurance write-off that needs collecting from a garage or a car with a mechanical failure sitting on your driveway, we provide a seamless service. We are a network of local professionals dedicated to serving the ${name} community.`} image={accidentDamageImage} textPosition="left" buttonText={`Get My ${name} Quote`} linkTo="/" />
                 <ContentSection icon="fa-solid fa-engine" title={`Mechanical Failures in ${name}`} text={`Broken down in ${name}? We buy cars with seized engines, faulty gearboxes, and any other major mechanical issue. Don't pay for recovery and expensive diagnostics—just get a quote from us. We'll collect your non-running vehicle for free from anywhere in ${name}.`} image={mechanicalFailureImage} textPosition="right" buttonText="Value a Non-Runner" linkTo="/mechanical-failure" />
 
                 <div className="bg-white py-5">
                     <Container>
                         <h2 className="text-center mb-4">Why Choose Us in {name}?</h2>
                         <Row>
-                            <Col md={4}><Card className="h-100 text-center p-3"><h4>Local Knowledge</h4><p>Our agents know ${name}, ensuring fast and hassle-free collections.</p></Card></Col>
+                            <Col md={4}><Card className="h-100 text-center p-3"><h4>Local Knowledge</h4><p>Our agents know {name}, ensuring fast and hassle-free collections.</p></Card></Col>
                             <Col md={4}><Card className="h-100 text-center p-3"><h4>Top Prices</h4><p>We value your car's parts, not just scrap, offering you more cash.</p></Card></Col>
                             <Col md={4}><Card className="h-100 text-center p-3"><h4>Licensed Professionals</h4><p>Every agent is a licensed waste carrier for your peace of mind.</p></Card></Col>
                         </Row>
@@ -114,7 +172,7 @@ const LocationPage = () => {
             <div>
                 <Helmet>
                     <title>{`Sell My Car for Salvage in ${name}`}</title>
-                    <meta name="description" content={`Based in ${parents[1]}, our agents cover ${name} and its districts like ${children.join(', ')}. Get a top price for your damaged car.`} />
+                    <meta name="description" content={`Based in ${parents[1]}, our agents cover ${name} and its districts. Get a top price for your damaged car.`} />
                 </Helmet>
                 <Hero title={`Get a Salvage Quote in ${name}`} subtitle={`Fast payment and free collection for any damaged or non-running car in ${name}.`} image={mechanicalFailureImage} step={step} vehicleData={vehicleData} error={error} apiResponse={apiResponse} onSearch={handleSearch} onConfirm={handleConfirm} onReject={handleReject} onManualSubmit={handleManualSubmit} onUserDetailsSubmit={handleUserDetailsSubmit} />
                 
@@ -124,7 +182,11 @@ const LocationPage = () => {
                 <div className="bg-white py-5">
                     <Container>
                          <h3>Covering All of {name}</h3>
-                         <p>Our collection service covers all districts of {name}, including **{children.join(', ')}** (where applicable), and the surrounding villages. Because we are local, we can often arrange same-day collection. Don't let your unwanted car take up space; find out how much it's worth today.</p>
+                         <p>
+                            Our collection service covers all districts of {name}
+                            {children && children.length > 0 && `, including ${children.join(', ')}`}
+                            , and the surrounding villages. Because we are local, we can often arrange same-day collection. Don't let your unwanted car take up space; find out how much it's worth today.
+                         </p>
                     </Container>
                 </div>
             </div>

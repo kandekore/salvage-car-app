@@ -9,7 +9,7 @@ const processLocations = () => {
   if (!regions) return [];
 
   Object.keys(regions).forEach(regionName => {
-    if (regionName.includes('(')) return;
+    // Correctly process regions like "Greater London (Region)"
     const regionSlug = toSlug(regionName);
     const region = {
       name: regionName,
@@ -23,7 +23,9 @@ const processLocations = () => {
     const counties = regions[regionName];
     if (counties) {
       Object.keys(counties).forEach(countyName => {
-        if (countyName.includes('(')) return;
+        // Skip specific unwanted parenthetical entries
+        if (countyName.includes('(Unitary)') || countyName.includes('(Metropolitan County)')) return;
+        
         region.children.push(countyName);
         const countySlug = toSlug(countyName);
         const county = {
@@ -38,7 +40,7 @@ const processLocations = () => {
         const cities = counties[countyName];
         if (cities) {
           Object.keys(cities).forEach(cityName => {
-            if (cityName.includes('(')) return;
+            if (cityName.includes('(Unitary)')) return; // Also check here if needed
             county.children.push(cityName);
             const citySlug = toSlug(cityName);
             const city = {
@@ -53,7 +55,6 @@ const processLocations = () => {
             const districts = cities[cityName];
             if (Array.isArray(districts) && districts.length > 0) {
               districts.forEach(districtName => {
-                if (districtName.includes('(')) return;
                 city.children.push(districtName);
                 const districtSlug = toSlug(districtName);
                 allLocations.push({
