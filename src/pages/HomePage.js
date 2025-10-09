@@ -90,7 +90,7 @@ const HomePage = () => {
                 <meta property="og:title" content="Car Salvage Experts - Get the Best Price for Your Damaged Car" />
                 <meta property="og:description" content="Turn your damaged or unwanted car into cash. We connect you with a nationwide network of salvage buyers for the best possible price." />
                 <meta property="og:image" content={heroBackgroundImage} />
-                <meta property="og:url" content="http://yourwebsite.com" />
+                <meta property="og:url" content="https://nationwidesalvage.co.uk" />
                 <meta property="og:type" content="website" />
             </Helmet>
 
