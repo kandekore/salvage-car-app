@@ -8,7 +8,7 @@ const routes = require('./Routes');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-const whitelist = ['http://localhost:3000', 'https://your-live-frontend-domain.com'];
+const whitelist = ['http://localhost:3000', 'https://nationwidesalvage.co.uk', 'https://www.nationwidesalvage.co.uk'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
