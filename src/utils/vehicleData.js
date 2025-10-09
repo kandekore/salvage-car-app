@@ -1,39 +1,76 @@
-// ... (all the existing code at the top of the file)
-import manufacturers from '../utils/salvage_manufacturers_all.json';
-import models from '../utils/all-vehicles-model.json';
+import vehicles from './all-vehicles-model.json';
+import manufacturers from './salvage_manufacturers_all.json';
 
-const toSlug = (name) => name ? name.toLowerCase().replace(/\s+/g, '-') : '';
+// --- Helper Function ---
+const toSlug = (name) => name ? name.toLowerCase().replace(/[\s/]+/g, '-').replace(/[().]/g, '') : '';
 
-export const allManufacturers = manufacturers.map(m => ({
-  ...m,
-  path: `/manufacturer/${m.slug}`,
-  modelsPath: `/manufacturer/${m.slug}/models`
-}));
+// --- Vehicle Processing ---
+const processedVehicles = vehicles.map(vehicle => {
+    const { make, model, year, trany, displ, fueltype1, id } = vehicle;
 
-export const allModels = models.map(m => ({
-  ...m,
-  slug: toSlug(m.model),
-  makeSlug: toSlug(m.make),
-  path: `/model/${toSlug(m.make)}/${toSlug(m.model)}`
-}));
+    // --- UPDATED LOGIC FOR DISPLAY NAME ---
 
-export const modelsByManufacturer = allModels.reduce((acc, model) => {
-  const make = model.make;
-  if (!acc[make]) {
-    acc[make] = [];
-  }
-  acc[make].push(model);
-  return acc;
-}, {});
+    // 1. Simplify the transmission type
+    let simpleTrany = 'Transmission'; // A sensible default
+    if (trany) {
+        if (trany.toLowerCase().includes('automatic')) {
+            simpleTrany = 'Automatic';
+        } else if (trany.toLowerCase().includes('manual')) {
+            simpleTrany = 'Manual';
+        }
+    }
 
-export const findManufacturerBySlug = (slug) => allManufacturers.find(m => m.slug === slug);
+    // 2. Create the new, cleaner display name
+    const displayName = `${make} ${model} (${year}) ${displ}L ${simpleTrany}`;
 
-export const findModelBySlugs = (makeSlug, modelSlug) => {
-  return allModels.find(m => m.makeSlug === makeSlug && m.slug === modelSlug);
+    // --- End of Updated Logic ---
+
+    const variantSlug = toSlug(`${model}-${year}-${displ}-${trany}-${id}`);
+    const makeSlug = toSlug(make);
+    const modelSlug = toSlug(model);
+
+    return {
+      ...vehicle,
+      displayName, // This now holds the cleaner name
+      variantSlug,
+      path: `/manufacturer/${makeSlug}/models/${modelSlug}/${variantSlug}`,
+    };
+});
+
+export const allVehicles = processedVehicles;
+
+// --- New function to get models grouped with their variations ---
+export const getGroupedModelsByMake = (makeSlug) => {
+    const models = allVehicles
+        .filter(vehicle => toSlug(vehicle.make) === makeSlug)
+        .reduce((acc, vehicle) => {
+            const modelKey = vehicle.model;
+            if (!acc[modelKey]) {
+                acc[modelKey] = {
+                    name: vehicle.model,
+                    slug: toSlug(vehicle.model),
+                    variations: []
+                };
+            }
+            acc[modelKey].variations.push(vehicle);
+            return acc;
+        }, {});
+    return Object.values(models).sort((a, b) => a.name.localeCompare(b.name));
 };
 
-// --- NEW HELPER FUNCTION ---
-// Finds all models that match a given manufacturer slug
-export const findModelsByManufacturer = (makeSlug) => {
-  return allModels.filter(m => m.makeSlug === makeSlug);
+// --- New function to find a specific vehicle variation by its unique slugs ---
+export const findVehicleByVariantSlug = (makeSlug, modelSlug, variantSlug) => {
+    return allVehicles.find(v => 
+        toSlug(v.make) === makeSlug && 
+        toSlug(v.model) === modelSlug && 
+        v.variantSlug === variantSlug
+    );
+};
+
+
+// --- Existing Manufacturer Functions (Unchanged) ---
+export const allManufacturers = manufacturers;
+
+export const findManufacturerBySlug = (slug) => {
+    return manufacturers.find(m => m.slug === slug);
 };

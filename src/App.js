@@ -16,24 +16,25 @@ import LocationPage from './pages/LocationPage';
 import ManufacturersListPage from './pages/ManufacturersListPage';
 import ModelsListPage from './pages/ModelsListPage';
 import ManufacturerPage from './pages/ManufacturerPage';
+import ModelsByManufacturerPage from './pages/ModelsByManufacturerPage';
 import ModelPage from './pages/ModelPage';
-import ModelsByManufacturerPage from './pages/ModelsByManufacturerPage'; // Import the new component
 
-import './App.css'; 
+
+import './App.css';
 
 
 function App() {
   return (
       <Router>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-         <ScrollToTop /> 
+         <ScrollToTop />
         <AppNavbar />
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/mot-failures" element={<MotFailuresPage />} />
-           
+
             <Route path="/mechanical-failure" element={<MechanicalFailurePage />} />
             <Route path="/insurance-write-off" element={<WriteOffPage />} />
             <Route path="/accident-damage" element={<AccidentDamagePage />} />
@@ -43,15 +44,14 @@ function App() {
             <Route path="/salvagecarcollection/:level1/:level2" element={<LocationPage />} />
             <Route path="/salvagecarcollection/:level1/:level2/:level3" element={<LocationPage />} />
             <Route path="/salvagecarcollection/:level1/:level2/:level3/:level4" element={<LocationPage />} />
-            
- {/* New Vehicle Routes */}
+
+            {/* Vehicle Routes - CORRECTED */}
             <Route path="/manufacturers" element={<ManufacturersListPage />} />
             <Route path="/models" element={<ModelsListPage />} />
             <Route path="/manufacturer/:slug" element={<ManufacturerPage />} />
-                        <Route path="/manufacturer/:slug/models" element={<ModelsByManufacturerPage />} />
-
-            {/* Note: We will add the /manufacturer/:slug/models route later if needed */}
-            <Route path="/model/:make/:model" element={<ModelPage />} />
+            <Route path="/manufacturer/:slug/models" element={<ModelsByManufacturerPage />} />
+            {/* This is the NEW, more specific route for individual model variations */}
+            <Route path="/manufacturer/:make/models/:model/:variantSlug" element={<ModelPage />} />
           </Routes>
         </main>
         <Footer />

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Container, Table, Row, Col } from 'react-bootstrap';
-import { findModelBySlugs, findManufacturerBySlug } from '../utils/vehicleData';
+import { Container, Table, Row, Col, Breadcrumb } from 'react-bootstrap';
+import { findVehicleByVariantSlug, findManufacturerBySlug } from '../utils/vehicleData';
 import Hero from '../components/Hero';
 import heroBackgroundImage from '../assets/images/drkbgd.jpg';
 
 const ModelPage = () => {
-    const { make, model } = useParams();
-    const vehicleModel = findModelBySlugs(make, model);
-    // Find the matching manufacturer data, if it exists
+    const { make, model, variantSlug } = useParams();
+    const vehicle = findVehicleByVariantSlug(make, model, variantSlug);
     const manufacturer = findManufacturerBySlug(make);
 
-    // --- State and handlers for the quote form (copy from HomePage.js) ---
+    // --- State and handlers for the quote form ---
     const [step, setStep] = useState(1);
     const [vehicleData, setVehicleData] = useState(null);
     const [formData, setFormData] = useState({});
@@ -82,23 +81,22 @@ const ModelPage = () => {
         }
     };
 
-
-    if (!vehicleModel) {
+if (!vehicle || !manufacturer) {
         return <Container className="text-center py-5"><h1>404 - Model Not Found</h1></Container>;
     }
 
-    const { make: vehicleMake, model: vehicleModelName, ...specs } = vehicleModel;
+    const { displayName, ...specs } = vehicle;
 
     return (
         <div>
             <Helmet>
-                <title>{`Sell My ${vehicleMake} ${vehicleModelName} for Salvage`}</title>
-                <meta name="description" content={`Get a top price for your salvage ${vehicleMake} ${vehicleModelName}. We buy any condition: damaged, non-runner, or MOT failure.`} />
+                <title>{`Sell My ${displayName} for Salvage`}</title>
+                <meta name="description" content={`Get a top price for your salvage ${displayName}. We buy any condition: damaged, non-runner, or MOT failure.`} />
             </Helmet>
 
             <Hero
-                title={`Sell My ${vehicleMake} ${vehicleModelName} for Salvage`}
-                subtitle={`Instant online valuation for your specific model.`}
+                title={`Sell Your ${displayName} for Salvage or Scrap`}
+                subtitle={`Get an online valuation for your ${manufacturer.brand} car.`}
                 image={heroBackgroundImage}
                 step={step}
                 vehicleData={vehicleData}
@@ -112,8 +110,15 @@ const ModelPage = () => {
             />
 
             <Container className="py-5">
-                {/* Technical Specs Info Box */}
-                <h2 className="text-center mb-4">{vehicleMake} {vehicleModelName} - Technical Overview</h2>
+                <Breadcrumb>
+                    <Breadcrumb.Item as={Link} to="/">Home</Breadcrumb.Item>
+                    <Breadcrumb.Item as={Link} to="/manufacturers">Manufacturers</Breadcrumb.Item>
+                    <Breadcrumb.Item as={Link} to={`/manufacturer/${manufacturer.slug}`}>{manufacturer.brand}</Breadcrumb.Item>
+                    <Breadcrumb.Item as={Link} to={`/manufacturer/${manufacturer.slug}/models`}>Models</Breadcrumb.Item>
+                    <Breadcrumb.Item active>{displayName}</Breadcrumb.Item>
+                </Breadcrumb>
+
+                <h2 className="text-center mb-4">{displayName} - Technical Overview</h2>
                 <Table striped bordered hover responsive className="shadow-sm">
                     <thead>
                         <tr>
@@ -123,11 +128,11 @@ const ModelPage = () => {
                     </thead>
                     <tbody>
                         {Object.entries(specs).map(([key, value]) => {
-                            if (value && typeof value !== 'object') {
+                            if (value && typeof value !== 'object' && key !== 'variantSlug' && key !== 'path' && key !== 'displayName') {
                                 return (
                                     <tr key={key}>
                                         <td>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
-                                        <td>{value}</td>
+                                        <td>{String(value)}</td>
                                     </tr>
                                 );
                             }
@@ -136,21 +141,19 @@ const ModelPage = () => {
                     </tbody>
                 </Table>
 
-                {/* Conditional Manufacturer History Section */}
-                {manufacturer && (
-                    <div className="text-center mt-5 p-4 bg-light rounded shadow-sm">
-                        <img src={manufacturer.logo_url} alt={`${manufacturer.brand} Logo`} style={{ height: '50px', marginBottom: '1rem' }} />
-                        <h3>About {manufacturer.brand}</h3>
-                        <Row className="justify-content-center">
-                           <Col md={8}>
-                               <p className="lead">{manufacturer.history}</p>
-                           </Col>
-                        </Row>
-                    </div>
-                )}
+                 <div className="text-center mt-5 p-4 bg-light rounded shadow-sm">
+                    <img src={manufacturer.logo_url} alt={`${manufacturer.brand} Logo`} style={{ height: '50px', marginBottom: '1rem' }} />
+                    <h3>About {manufacturer.brand}</h3>
+                    <Row className="justify-content-center">
+                       <Col md={8}>
+                           <p className="lead">{manufacturer.history}</p>
+                       </Col>
+                    </Row>
+                </div>
             </Container>
         </div>
     );
 };
 
 export default ModelPage;
+
