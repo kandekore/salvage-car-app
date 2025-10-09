@@ -24,7 +24,7 @@ const HomePage = () => {
         setFormData({ registration, postcode });
 
         try {
-            const res = await fetch('http://localhost:5001/api/vehicle-data', {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/vehicle-data`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ registration }),
@@ -61,7 +61,7 @@ const HomePage = () => {
     const handleUserDetailsSubmit = async (userDetails) => {
         const finalData = { ...formData, ...userDetails };
         try {
-            const res = await fetch('http://localhost:5001/api/submit-lead', {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/submit-lead`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(finalData),

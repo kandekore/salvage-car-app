@@ -6,8 +6,20 @@ const cors = require('cors');
 const routes = require('./Routes');
 
 const app = express();
+const PORT = process.env.PORT || 5001;
 
-app.use(cors());
+const whitelist = ['http://localhost:3000', 'https://your-live-frontend-domain.com'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get('/api', (req, res) => {
@@ -25,5 +37,4 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error('CRITICAL MONGO ERROR:', err);
 });
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is live on port ${PORT}`));

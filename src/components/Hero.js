@@ -43,8 +43,8 @@ const Hero = ({
         return (
             <Card body className="text-center text-dark">
                 <Alert variant="danger">{error || "Vehicle not found."}</Alert>
-                <p>Please enter details manually.</p>
-                <ManualEntryForm onSubmit={onManualSubmit} />
+                <h4>We couldn't find your vehicle.<br></br>Please enter details manually.</h4>
+                        <ManualEntryForm onSubmit={onManualSubmit} onCancel={onReject} />
             </Card>
         );
       case 5:
