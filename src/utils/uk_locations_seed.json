@@ -477,7 +477,7 @@
       }
     },
     "North West": {
-      "Greater Manchester (Metropolitan County)": {
+      "Greater Manchester": {
         "Manchester": [
           "Manchester City Centre",
           "Ancoats",
@@ -695,8 +695,8 @@
         "Berwick-upon-Tweed": []
       }
     },
-    "North": {
-      "Cumbria (Unitary)": {
+    "The North": {
+      "Cumbria": {
         "Carlisle": [],
         "Kendal": [],
         "Barrow-in-Furness": []
@@ -778,9 +778,8 @@
           "Tonypandy",
           "Treorchy",
           "Porth"
-        ]
-      },
-      "Wrexham": {
+        ],
+     
         "Wrexham": [
           "Rhosllanerchrugog",
           "Ruabon",

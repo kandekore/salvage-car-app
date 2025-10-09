@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Container, Row, Col, ListGroup, Card, Breadcrumb } from 'react-bootstrap';
-import {allLocations, findLocationByPath } from '../utils/locationData';
+import { allLocations, findLocationByPath } from '../utils/locationData';
 import Hero from '../components/Hero';
 import ContentSection from '../components/ContentSection';
 
@@ -18,76 +18,75 @@ const LocationPage = () => {
     const location = findLocationByPath(params);
 
     const [step, setStep] = useState(1);
-      const [vehicleData, setVehicleData] = useState(null);
-      const [formData, setFormData] = useState({});
-      const [error, setError] = useState('');
-      const [apiResponse, setApiResponse] = useState('');
-  
-      const handleSearch = async ({ registration, postcode }) => {
-          setStep(2);
-          setError('');
-          setFormData({ registration, postcode });
-  
-          try {
-              const res = await fetch(`${process.env.REACT_APP_API_URL}/vehicle-data`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ registration }),
-              });
-  
-              if (!res.ok) {
-                  const errorData = await res.json();
-                  throw new Error(errorData.message || 'Vehicle not found');
-              }
-              const data = await res.json();
-              setVehicleData(data);
-              setStep(3);
-          } catch (err) {
-              setError(err.message);
-              setStep(4);
-          }
-      };
-  
-      const handleConfirm = () => {
-          setFormData({ ...formData, ...vehicleData });
-          setStep(5);
-      };
-      
-      const handleReject = () => {
-          setVehicleData(null);
-          setStep(1);
-      };
-  
-      const handleManualSubmit = (manualVehicleDetails) => {
-          setFormData({ ...formData, ...manualVehicleDetails });
-          setStep(5);
-      };
-  
-      const handleUserDetailsSubmit = async (userDetails) => {
-          const finalData = { ...formData, ...userDetails };
-          try {
-              const res = await fetch(`${process.env.REACT_APP_API_URL}/submit-lead`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(finalData),
-              });
-              if (!res.ok) throw new Error((await res.json()).message);
-  
-              const result = await res.json();
-              setApiResponse(result.message);
-  
-              setTimeout(() => {
-                  setStep(1);
-                  setVehicleData(null);
-                  setApiResponse('');
-              }, 5000);
-          } catch (err) {
-              setError(err.message);
-          }
-      };
-  
+    const [vehicleData, setVehicleData] = useState(null);
+    const [formData, setFormData] = useState({});
+    const [error, setError] = useState('');
+    const [apiResponse, setApiResponse] = useState('');
 
-      if (!location) {
+    const handleSearch = async ({ registration, postcode }) => {
+        setStep(2);
+        setError('');
+        setFormData({ registration, postcode });
+
+        try {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/vehicle-data`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ registration }),
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || 'Vehicle not found');
+            }
+            const data = await res.json();
+            setVehicleData(data);
+            setStep(3);
+        } catch (err) {
+            setError(err.message);
+            setStep(4);
+        }
+    };
+
+    const handleConfirm = () => {
+        setFormData({ ...formData, ...vehicleData });
+        setStep(5);
+    };
+    
+    const handleReject = () => {
+        setVehicleData(null);
+        setStep(1);
+    };
+
+    const handleManualSubmit = (manualVehicleDetails) => {
+        setFormData({ ...formData, ...manualVehicleDetails });
+        setStep(5);
+    };
+
+    const handleUserDetailsSubmit = async (userDetails) => {
+        const finalData = { ...formData, ...userDetails };
+        try {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/submit-lead`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(finalData),
+            });
+            if (!res.ok) throw new Error((await res.json()).message);
+
+            const result = await res.json();
+            setApiResponse(result.message);
+
+            setTimeout(() => {
+                setStep(1);
+                setVehicleData(null);
+                setApiResponse('');
+            }, 5000);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    if (!location) {
         return (
             <Container className="text-center py-5">
                 <h1>404 - Area Not Found</h1>
@@ -102,7 +101,7 @@ const LocationPage = () => {
     const getParentLocations = () => {
         return parents.map(parentName => {
             return allLocations.find(loc => loc.name === parentName);
-        }).filter(Boolean); // Filter out any undefined results
+        }).filter(Boolean);
     };
 
     const getChildLocations = () => {
@@ -129,15 +128,22 @@ const LocationPage = () => {
                 <div className="bg-white py-5">
                     <Container>
                         <Breadcrumb>
-                            <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/areas" }}>Areas</Breadcrumb.Item>
+                            <Breadcrumb.Item as={Link} to="/">Home</Breadcrumb.Item>
+                            <Breadcrumb.Item as={Link} to="/areas">Areas</Breadcrumb.Item>
                             <Breadcrumb.Item active>{name}</Breadcrumb.Item>
                         </Breadcrumb>
                         <Row className="align-items-center">
                             <Col md={6}>
                                 <h2>Complete Coverage Across {name}</h2>
                                 <p className="lead">Our extensive network of salvage agents operates throughout the {name} region, ensuring we can offer a fast, free, and convenient service no matter where you are.</p>
-                                <p>We are actively buying cars in all major counties and cities, including prominent areas like {childLocations.map(child => <Link to={child.path} key={child.slug}>{child.name}</Link>).reduce((prev, curr) => [prev, ', ', curr])}, and many more. Whether you have an MOT failure in a busy city centre or a non-runner in a quiet village, our local teams are ready to provide a top-price quote. We understand the local market in {name}, allowing us to value your car's parts accurately. This means we consistently offer better prices than scrap-only yards.</p>
+                                <p>
+                                    We are actively buying cars in all major counties and cities, including prominent areas like {childLocations.map((child, index) => (
+                                        <span key={child.slug}>
+                                            <Link to={child.path}>{child.name}</Link>
+                                            {index < childLocations.length - 1 ? ', ' : ''}
+                                        </span>
+                                    ))}, and many more. Whether you have an MOT failure in a busy city centre or a non-runner in a quiet village, our local teams are ready to provide a top-price quote. We understand the local market in {name}, allowing us to value your car's parts accurately. This means we consistently offer better prices than scrap-only yards.
+                                </p>
                             </Col>
                              <Col md={6}>
                                 <h3>Areas We Cover in {name}</h3>
@@ -166,9 +172,9 @@ const LocationPage = () => {
                 
                  <Container className="py-3">
                     <Breadcrumb>
-                        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/areas" }}>Areas</Breadcrumb.Item>
-                        {parentLocations.map(parent => <Breadcrumb.Item key={parent.slug} linkAs={Link} linkProps={{ to: parent.path }}>{parent.name}</Breadcrumb.Item>)}
+                        <Breadcrumb.Item as={Link} to="/">Home</Breadcrumb.Item>
+                        <Breadcrumb.Item as={Link} to="/areas">Areas</Breadcrumb.Item>
+                        {parentLocations.map(parent => <Breadcrumb.Item key={parent.slug} as={Link} to={parent.path}>{parent.name}</Breadcrumb.Item>)}
                         <Breadcrumb.Item active>{name}</Breadcrumb.Item>
                     </Breadcrumb>
                 </Container>
@@ -186,8 +192,14 @@ const LocationPage = () => {
                         </Row>
                          <Row className="mt-4">
                             <Col>
-                                                                <h3>Covering {childLocations.map(child => <Link to={child.path} key={child.slug}>{child.name}</Link>).reduce((prev, curr) => [prev, ', ', curr])} and more</h3>
-
+                                <h3>
+                                    Covering {childLocations.map((child, index) => (
+                                        <span key={child.slug}>
+                                            <Link to={child.path}>{child.name}</Link>
+                                            {index < childLocations.length - 1 ? ', ' : ''}
+                                        </span>
+                                    ))} and more
+                                </h3>
                                 <p>Our service extends to every town and village in {name}. Our offers are based on the salvage value, which is often far more than the scrap metal price. We look at the make, model, and condition of the parts to formulate a quote that is both fair and competitive. We are proud to serve the wider <Link to={parentLocations[0]?.path || '/areas'}>{parents[0]}</Link> area, providing a reliable and trusted outlet for anyone looking to turn their problem car into cash.</p>
                             </Col>
                         </Row>
@@ -208,9 +220,9 @@ const LocationPage = () => {
                 
                  <Container className="py-3">
                     <Breadcrumb>
-                        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/areas" }}>Areas</Breadcrumb.Item>
-                        {parentLocations.map(parent => <Breadcrumb.Item key={parent.slug} linkAs={Link} linkProps={{ to: parent.path }}>{parent.name}</Breadcrumb.Item>)}
+                        <Breadcrumb.Item as={Link} to="/">Home</Breadcrumb.Item>
+                        <Breadcrumb.Item as={Link} to="/areas">Areas</Breadcrumb.Item>
+                        {parentLocations.map(parent => <Breadcrumb.Item key={parent.slug} as={Link} to={parent.path}>{parent.name}</Breadcrumb.Item>)}
                         <Breadcrumb.Item active>{name}</Breadcrumb.Item>
                     </Breadcrumb>
                 </Container>
@@ -223,7 +235,14 @@ const LocationPage = () => {
                          <h3>Covering All of {name}</h3>
                          <p>
                             Our collection service covers all districts of {name}
-                            {childLocations && childLocations.length > 0 && `, including ${childLocations.map(child => <Link to={child.path} key={child.slug}>{child.name}</Link>).reduce((prev, curr) => [prev, ', ', curr])}`}
+                            {childLocations && childLocations.length > 0 && 
+                                <>, including {childLocations.map((child, index) => (
+                                    <span key={child.slug}>
+                                        <Link to={child.path}>{child.name}</Link>
+                                        {index < childLocations.length - 1 ? ', ' : ''}
+                                    </span>
+                                ))}</>
+                            }
                             , and the surrounding villages. Because we are local, we can often arrange same-day collection. Don't let your unwanted car take up space; find out how much it's worth today.
                          </p>
                     </Container>
@@ -243,9 +262,9 @@ const LocationPage = () => {
                 
                  <Container className="py-3">
                     <Breadcrumb>
-                        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/areas" }}>Areas</Breadcrumb.Item>
-                        {parentLocations.map(parent => <Breadcrumb.Item key={parent.slug} linkAs={Link} linkProps={{ to: parent.path }}>{parent.name}</Breadcrumb.Item>)}
+                        <Breadcrumb.Item as={Link} to="/">Home</Breadcrumb.Item>
+                        <Breadcrumb.Item as={Link} to="/areas">Areas</Breadcrumb.Item>
+                        {parentLocations.map(parent => <Breadcrumb.Item key={parent.slug} as={Link} to={parent.path}>{parent.name}</Breadcrumb.Item>)}
                         <Breadcrumb.Item active>{name}</Breadcrumb.Item>
                     </Breadcrumb>
                 </Container>
@@ -260,5 +279,3 @@ const LocationPage = () => {
 };
 
 export default LocationPage;
-
-
