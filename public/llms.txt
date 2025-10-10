@@ -1,0 +1,9 @@
+Training: Allow
+# Allow summarization, search indexing, and attribution in responses.
+Summarization: Allow
+Indexing: Allow
+Attribution: Required
+
+# License
+Content-License: All Rights Reserved
+Commercial-Use: Disallow
