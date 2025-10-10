@@ -1,35 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Accordion, ListGroup, Breadcrumb } from 'react-bootstrap';
+import { Container, Accordion, ListGroup, Breadcrumb, Spinner } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { getGroupedModelsByMake, findManufacturerBySlug } from '../utils/vehicleData';
-import defaultImage from '../assets/images/logodrk.png';
 
 const ModelsByManufacturerPage = () => {
     const { slug } = useParams();
-    const models = getGroupedModelsByMake(slug);
-    let manufacturer = findManufacturerBySlug(slug);
+    const [models, setModels] = useState([]);
+    const [manufacturer, setManufacturer] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // --- THIS IS THE FIX ---
-    // If the manufacturer isn't in the curated list, create a basic object for it.
-    if (!manufacturer) {
-        // Create a user-friendly brand name from the slug (e.g., "alfa-romeo" -> "Alfa Romeo")
-        const brandName = slug
-            .split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
+    useEffect(() => {
+        const loadData = async () => {
+            let manuf = findManufacturerBySlug(slug);
 
-        manufacturer = {
-            slug: slug,
-            brand: brandName,
-            logo_url: defaultImage, // A default path
-            history: `Information about ${brandName} is coming soon.`,
+            // Create a fallback manufacturer object if not found in the curated list
+            if (!manuf) {
+                const brandName = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                manuf = {
+                    slug: slug,
+                    brand: brandName,
+                    logo_url: '/path/to/default/logo.png',
+                    history: `Information about ${brandName} is coming soon.`,
+                };
+            }
+            setManufacturer(manuf);
+
+            const modelData = await getGroupedModelsByMake(slug);
+            setModels(modelData);
+            setLoading(false);
         };
-    }
-    // --- END OF FIX ---
 
-    // This check is now safe because 'manufacturer' will always be an object.
-    if (!models || models.length === 0) {
+        loadData();
+    }, [slug]);
+
+    if (loading) {
+        return (
+            <Container className="text-center py-5">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading models...</span>
+                </Spinner>
+            </Container>
+        );
+    }
+
+    if (!manufacturer || models.length === 0) {
         return (
             <Container className="text-center py-5">
                 <h1>No Models Found</h1>
@@ -43,24 +58,25 @@ const ModelsByManufacturerPage = () => {
         <div>
             <Helmet>
                 <title>{`Salvage ${manufacturer.brand} Models | We Buy All ${manufacturer.brand} Cars`}</title>
-                <meta name="description" content={`We buy all salvage ${manufacturer.brand} models for top prices. Free collection and instant payment. Get a quote for your ${manufacturer.brand} today.`} />
+                <meta name="description" content={`We buy all salvage ${manufacturer.brand} models for top prices. Get a quote for your ${manufacturer.brand} today.`} />
             </Helmet>
             <Container className="py-5">
                 <Breadcrumb>
                     <Breadcrumb.Item as={Link} to="/">Home</Breadcrumb.Item>
-                    <Breadcrumb.Item as={Link} to="/manufacturers">Manufacturers</Breadcrumb.Item>
-                    <Breadcrumb.Item as={Link} to={`/manufacturer/${manufacturer.slug}`}>{manufacturer.brand}</Breadcrumb.Item>
-                    <Breadcrumb.Item active>Models</Breadcrumb.Item>
+                    <Breadcrumb.Item as={Link} to="/models">Models</Breadcrumb.Item>
+                    <Breadcrumb.Item active>{manufacturer.brand}</Breadcrumb.Item>
                 </Breadcrumb>
 
                 <div className="text-center mb-5">
-                    <img src={manufacturer.logo_url} alt={`${manufacturer.brand} Logo`} style={{ height: '50px', marginBottom: '1rem' }} />
+                    {manufacturer.logo_url !== '/path/to/default/logo.png' &&
+                        <img src={manufacturer.logo_url} alt={`${manufacturer.brand} Logo`} style={{ height: '50px', marginBottom: '1rem' }} />
+                    }
                     <h1>Salvage {manufacturer.brand} Models</h1>
                     <p className="lead">
-                        We purchase all {manufacturer.brand} models, regardless of condition. From MOT failures to accident-damaged write-offs, we offer competitive prices. Find your specific model variation below to get started.
+                        We purchase all {manufacturer.brand} models, regardless of condition. Find your specific model variation below to get started.
                     </p>
                 </div>
-
+                
                 <Accordion>
                     {models.map((model, index) => (
                         <Accordion.Item eventKey={String(index)} key={model.slug}>

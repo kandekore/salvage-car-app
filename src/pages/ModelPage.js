@@ -1,31 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Container, Table, Row, Col, Breadcrumb } from 'react-bootstrap';
+import { Container, Table, Row, Col, Breadcrumb, Spinner } from 'react-bootstrap';
 import { findVehicleByVariantSlug, findManufacturerBySlug } from '../utils/vehicleData';
 import Hero from '../components/Hero';
 import heroBackgroundImage from '../assets/images/drkbgd.jpg';
-import defaultImage from '../assets/images/logodrk.png';
+import defaultImage from '../assets/images/logodrk.png'; // Kept your default image import
 
 const ModelPage = () => {
     const { make, model, variantSlug } = useParams();
-    const vehicle = findVehicleByVariantSlug(make, model, variantSlug);
-    let manufacturer = findManufacturerBySlug(make);
+    const [vehicle, setVehicle] = useState(null);
+    const [manufacturer, setManufacturer] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-
-    // --- THIS IS THE FIX ---
-    // If the manufacturer isn't in the curated list, create a basic fallback object.
-    if (!manufacturer && vehicle) { // Also check if vehicle exists to get the proper name
-        manufacturer = {
-            slug: make,
-            brand: vehicle.make, // Get the correctly capitalized name from the vehicle data
-            logo_url: defaultImage,
-            history: `Information about ${vehicle.make} is coming soon.`,
-        };
-    }
-    // --
-
-    // --- State and handlers for the quote form ---
+    // --- Form state and handlers ---
     const [step, setStep] = useState(1);
     const [vehicleData, setVehicleData] = useState(null);
     const [formData, setFormData] = useState({});
@@ -36,14 +24,12 @@ const ModelPage = () => {
         setStep(2);
         setError('');
         setFormData({ registration, postcode });
-
         try {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/vehicle-data`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ registration }),
             });
-
             if (!res.ok) {
                 const errorData = await res.json();
                 throw new Error(errorData.message || 'Vehicle not found');
@@ -61,7 +47,7 @@ const ModelPage = () => {
         setFormData({ ...formData, ...vehicleData });
         setStep(5);
     };
-    
+
     const handleReject = () => {
         setVehicleData(null);
         setStep(1);
@@ -81,10 +67,8 @@ const ModelPage = () => {
                 body: JSON.stringify(finalData),
             });
             if (!res.ok) throw new Error((await res.json()).message);
-
             const result = await res.json();
             setApiResponse(result.message);
-
             setTimeout(() => {
                 setStep(1);
                 setVehicleData(null);
@@ -95,7 +79,41 @@ const ModelPage = () => {
         }
     };
 
-if (!vehicle || !manufacturer) {
+    useEffect(() => {
+        const loadData = async () => {
+            const vehicleData = await findVehicleByVariantSlug(make, model, variantSlug);
+            setVehicle(vehicleData);
+
+            if (vehicleData) {
+                let manuf = findManufacturerBySlug(make); // Use 'let' as you intended
+                if (!manuf) {
+                    // This is your desired fallback logic
+                    manuf = {
+                        slug: make,
+                        brand: vehicleData.make,
+                        logo_url: defaultImage, // Use the imported default image
+                        history: `Information about ${vehicleData.make} is coming soon.`,
+                    };
+                }
+                setManufacturer(manuf);
+            }
+            setLoading(false);
+        };
+
+        loadData();
+    }, [make, model, variantSlug]);
+
+    if (loading) {
+        return (
+            <Container className="text-center py-5">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading vehicle details...</span>
+                </Spinner>
+            </Container>
+        );
+    }
+
+    if (!vehicle || !manufacturer) {
         return <Container className="text-center py-5"><h1>404 - Model Not Found</h1></Container>;
     }
 
@@ -170,4 +188,3 @@ if (!vehicle || !manufacturer) {
 };
 
 export default ModelPage;
-
