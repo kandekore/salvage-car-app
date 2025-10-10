@@ -18,12 +18,25 @@ async function getNextSequenceValue(sequenceName){
 
 
 router.post('/vehicle-data', async (req, res) => {
-    const { registration } = req.body;
+    const { registration, recaptchaToken } = req.body;
+
+    // --- RECAPTCHA VERIFICATION ---
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+
     try {
+        const verificationRes = await fetch(verificationUrl, { method: 'POST' });
+        const verificationData = await verificationRes.json();
+
+        if (!verificationData.success) {
+            return res.status(400).json({ message: "reCAPTCHA verification failed. Please try again." });
+        }
+
+        // --- If verification is successful, proceed with the vehicle lookup ---
         const historyUrl = `${BASE_URL}/VehicleAndMotHistory?v=2&api_nullitems=1&auth_apikey=${API_KEY}&key_VRM=${encodeURIComponent(registration)}`;
         const historyRes = await fetch(historyUrl);
         const historyData = await historyRes.json();
-        
+
         if (!historyRes.ok || historyData.Response.StatusCode === 'InvalidSearchTerm') {
             return res.status(404).json({ message: `We couldn't find that registration. Please double-check it or enter the details manually below.` });
         }

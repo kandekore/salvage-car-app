@@ -19,7 +19,7 @@ const WriteOffPage = () => {
     const [error, setError] = useState('');
     const [apiResponse, setApiResponse] = useState('');
 
-    const handleSearch = async ({ registration, postcode }) => {
+    const handleSearch = async ({ registration, postcode, recaptchaToken }) => {
         setStep(2);
         setError('');
         setFormData({ registration, postcode });
@@ -27,7 +27,7 @@ const WriteOffPage = () => {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/vehicle-data`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ registration }),
+                body: JSON.stringify({ registration, recaptchaToken }),
             });
             if (!res.ok) throw new Error((await res.json()).message || 'Vehicle not found');
             const data = await res.json();
