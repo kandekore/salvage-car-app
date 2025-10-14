@@ -85,8 +85,8 @@ const HomePage = () => {
     return (
         <div>
             <Helmet>
-                <title>Car Salvage Experts - Get the Best Price for Your Damaged Car</title>
-                <meta name="description" content="We buy any salvage car, including MOT failures, insurance write-offs, accident damaged, and cars with mechanical issues. Get a free, online salvage quote today!" />
+                <title>Car Salvage & Scrap Experts - Get the Best Price for Your Vehicle</title>
+                <meta name="description" content="We buy any scrap or salvage car, including MOT failures, insurance write-offs, accident damaged, and cars with mechanical issues. Get a free, online salvage quote today!" />
                 <meta property="og:title" content="Car Salvage Experts - Get the Best Price for Your Damaged Car" />
                 <meta property="og:description" content="Turn your damaged or unwanted car into cash. We connect you with a nationwide network of salvage buyers for the best possible price." />
                 <meta property="og:image" content={heroBackgroundImage} />
@@ -96,7 +96,7 @@ const HomePage = () => {
 
             <Hero
                 title="Turn Your Unwanted Car Into Cash"
-                subtitle="We pay top salvage prices, not scrap prices. Get your free, guaranteed quote in seconds."
+                subtitle="We buy scrap and salvage cars and pay top prices Get a quote today to see how much you can get."
                 image={heroBackgroundImage}
                 step={step}
                 vehicleData={vehicleData}
@@ -117,7 +117,7 @@ const HomePage = () => {
                                 <Card className="h-100 border-0 shadow-sm">
                                     <Card.Body>
                                         <i className="fas fa-car fa-3x text-danger mb-3"></i>
-                                        <Card.Title>1. Get a Valuation</Card.Title>
+                                        <Card.Title>1. Get a Salvage Valuation</Card.Title>
                                         <Card.Text>
                                             Enter your vehicle's registration and postcode. Provide an accurate description of the damage for the best price.
                                         </Card.Text>
@@ -130,7 +130,7 @@ const HomePage = () => {
                                         <i className="fas fa-handshake fa-3x text-danger mb-3"></i>
                                         <Card.Title>2. Accept The Offer</Card.Title>
                                         <Card.Text>
-                                            Accept our guaranteed, fixed price offer. No haggling, no tyre-kicking, just honest salvage prices.
+                                            Accept our guaranteed, fixed price offer. No haggling, no tyre-kicking, just honest salvage & scrap prices.
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -141,7 +141,7 @@ const HomePage = () => {
                                         <i className="fas fa-truck-pickup fa-3x text-danger mb-3"></i>
                                         <Card.Title>3. Free Collection & Payment</Card.Title>
                                         <Card.Text>
-                                            We arrange free collection from anywhere in the UK and pay you instantly via secure bank transfer.
+                                            We arrange free vehicle collection from anywhere in the UK and pay you instantly via secure bank transfer.
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -154,7 +154,7 @@ const HomePage = () => {
          <ContentSection
                 icon="fa-solid fa-file-invoice"
                 title="Failed its MOT? No Problem."
-                text="An MOT failure can mean expensive repairs. Instead of pouring money into an older car, sell it to us. We see the value in the parts, ensuring you get a price that reflects the car's true worth, not just its repair bill."
+                text="An MOT failure can mean expensive repairs. Instead of pouring money into an older car, sell your mot failure to us for scrap or salvage it to us. We see the value in the parts, ensuring you get a price that reflects the car's true worth, not just its repair bill."
                 image={motFailureImage}
                 textPosition="right"
                 buttonText="Get Your MOT Failure Quote"
@@ -172,7 +172,7 @@ const HomePage = () => {
             <ContentSection
                 icon="fa-solid fa-wrench"
                 title="Sell Your Accident Damaged Car"
-                text="From minor dents to major collision damage, we make it easy. Provide details and photos, and our buyers will give you a fair, competitive quote based on the vehicle's salvageable parts and repair potential."
+                text="From minor dents to major collision damage, we make it easy. Provide details and photos, and our buyers will give you a fair, competitive quote based on the vehicle's salvageable parts, scrap value or repair potential."
                 image={accidentDamageImage}
                 textPosition="right"
                 buttonText="Get My Damaged Car Quote"
@@ -181,7 +181,7 @@ const HomePage = () => {
             <ContentSection
                 icon="fa-solid fa-engine"
                 title="Mechanical & Engine Failures"
-                text="Is your car suffering from a seized engine or faulty gearbox? These issues can be costly to fix. We buy non-running cars with any mechanical problem because your car is a collection of valuable parts."
+                text="Is your car suffering from a seized engine or faulty gearbox? These issues can be costly to fix. We buy non-running cars with any mechanical problem because your car is a collection of valuable parts, or may be good for salvage car buyers, ensuring you get a price that reflects the car's true worth ."
                 image={mechanicalFailureImage}
                 textPosition="left"
                 buttonText="Quote for My Non-Runner"
