@@ -62,7 +62,7 @@ const ManufacturerPage = () => {
        };
    
        const handleUserDetailsSubmit = async (userDetails) => {
-           const finalData = { ...formData, ...userDetails };
+           const finalData = { ...formData, ...userDetails, submissionUrl: window.location.href };
            try {
                const res = await fetch('http://localhost:5001/api/submit-lead', {
                    method: 'POST',

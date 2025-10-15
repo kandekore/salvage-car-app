@@ -74,6 +74,7 @@ router.post('/submit-lead', async (req, res) => {
             phone: leadData.phone,
             email: leadData.email,
             additionalInfo: leadData.additionalInfo,
+            submissionUrl: leadData.submissionUrl,
         });
         await newScrapRequest.save();
 
@@ -107,6 +108,7 @@ router.post('/submit-lead', async (req, res) => {
                 leadid: customLeadId,
                 vin: v.Vin,
                 resend: false,
+                 submission_url: leadData.submissionUrl,
             });
         } else {
             // Case 2: We only have manual data
@@ -129,6 +131,7 @@ router.post('/submit-lead', async (req, res) => {
                 mot_due: '',
                 vin: '',
                 resend: false,
+                 submission_url: leadData.submissionUrl,
             });
         }
         

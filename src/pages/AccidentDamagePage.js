@@ -53,7 +53,7 @@ const AccidentDamagePage = () => {
     };
 
     const handleUserDetailsSubmit = async (userDetails) => {
-        const finalData = { ...formData, ...userDetails };
+        const finalData = { ...formData, ...userDetails, submissionUrl: window.location.href };
         try {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/submit-lead`, {
                 method: 'POST',

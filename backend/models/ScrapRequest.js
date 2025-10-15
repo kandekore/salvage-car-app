@@ -14,6 +14,7 @@ const ScrapRequestSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, required: true },
   additionalInfo: { type: String },
+  submissionUrl: { type: String }, // Add this line
 }, { timestamps: true });
 
 module.exports = mongoose.model('ScrapRequest', ScrapRequestSchema);
