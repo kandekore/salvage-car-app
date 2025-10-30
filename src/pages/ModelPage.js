@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Container, Table, Row, Col, Breadcrumb, Spinner } from 'react-bootstrap';
 import { findVehicleByVariantSlug, findManufacturerBySlug } from '../utils/vehicleData';
@@ -20,6 +20,8 @@ const ModelPage = () => {
     const [error, setError] = useState('');
     const [apiResponse, setApiResponse] = useState('');
 
+    const location = useLocation();
+    const canonicalUrl = `https://nationwidesalvage.co.uk${location.pathname}`;
     const handleSearch = async ({ registration, postcode, recaptchaToken }) => {
         setStep(2);
         setError('');
@@ -117,14 +119,15 @@ const ModelPage = () => {
         return <Container className="text-center py-5"><h1>404 - Model Not Found</h1></Container>;
     }
 
-    const { displayName, ...specs } = vehicle;
+const { displayName, path, ...specs } = vehicle;
 
     return (
         <div>
             <Helmet>
                 <title>{`Sell My ${displayName} for Salvage`}</title>
                 <meta name="description" content={`Get a top price for your salvage ${displayName}. We buy any condition: damaged, non-runner, or MOT failure.`} />
-            </Helmet>
+            <link rel="canonical" href={canonicalUrl} />
+                </Helmet>
 
             <Hero
                 title={`Sell Your ${displayName} for Salvage or Scrap`}

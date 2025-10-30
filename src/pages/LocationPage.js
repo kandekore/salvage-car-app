@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Container, Row, Col, ListGroup, Card, Breadcrumb } from 'react-bootstrap';
 import { allLocations, findLocationByPath } from '../utils/locationData';
@@ -17,7 +17,7 @@ import scrapCarImage from '../assets/images/salvage-yard.jpg';
 
 const LocationPage = () => {
     const params = useParams();
-    const location = findLocationByPath(params);
+    const locationData = findLocationByPath(params);
 
     const [step, setStep] = useState(1);
     const [vehicleData, setVehicleData] = useState(null);
@@ -25,6 +25,9 @@ const LocationPage = () => {
     const [error, setError] = useState('');
     const [apiResponse, setApiResponse] = useState('');
 
+        const location = useLocation();
+        const canonicalUrl = `https://nationwidesalvage.co.uk${location.pathname}`;
+    
     const handleSearch = async ({ registration, postcode, recaptchaToken }) => {
         setStep(2);
         setError('');
@@ -88,7 +91,7 @@ const LocationPage = () => {
         }
     };
 
-    if (!location) {
+    if (!locationData) {
         return (
             <Container className="text-center py-5">
                 <h1>404 - Area Not Found</h1>
@@ -98,7 +101,7 @@ const LocationPage = () => {
         );
     }
 
-    const { name, level, parents, children } = location;
+    const { name, level, parents, children } = locationData;
 
     const getParentLocations = () => {
         return parents.map(parentName => {
@@ -124,7 +127,9 @@ const LocationPage = () => {
                 <Helmet>
                     <title>{`Salvage or Scrap Your Car in ${name} | Sell Your Damaged Car`}</title>
                     <meta name="description" content={`Get a top price for your MOT failure, write-off, or damaged car in ${name}. We also offer scrap car collection in ${children.slice(0, 3).join(', ')}.`} />
-                </Helmet>
+                            <link rel="canonical" href={canonicalUrl} />
+
+                    </Helmet>
                 <Hero title={`Sell or Scrap Your Car in ${name}`} subtitle={`We offer free collection and instant payment for salvage and scrap cars across the entire ${name} region.`} image={heroBackgroundImage} step={step} vehicleData={vehicleData} error={error} apiResponse={apiResponse} onSearch={handleSearch} onConfirm={handleConfirm} onReject={handleReject} onManualSubmit={handleManualSubmit} onUserDetailsSubmit={handleUserDetailsSubmit} />
                 
                 <div className="bg-white py-5">
@@ -173,7 +178,9 @@ const LocationPage = () => {
                 <Helmet>
                     <title>{`Scrap or Sell My Car in ${name}`}</title>
                     <meta name="description" content={`We buy MOT failures, write-offs, and non-runners across ${name}. Our agents cover ${children.slice(0, 3).join(', ')} and all surrounding areas. Scrap and salvage car services available.`} />
-                </Helmet>
+                                            <link rel="canonical" href={canonicalUrl} />
+
+                    </Helmet>
                 <Hero title={`Salvage & Scrap Cars in ${name}`} subtitle={`Serving all of ${name} from our local bases within the ${parents[0]} region.`} image={writeOffImage} step={step} vehicleData={vehicleData} error={error} apiResponse={apiResponse} onSearch={handleSearch} onConfirm={handleConfirm} onReject={handleReject} onManualSubmit={handleManualSubmit} onUserDetailsSubmit={handleUserDetailsSubmit} />
                 
                  <Container className="py-3">
@@ -229,7 +236,9 @@ const LocationPage = () => {
                 <Helmet>
                     <title>{`Sell or Scrap My Car in ${name}`}</title>
                     <meta name="description" content={`Based in ${parents[1]}, our agents cover ${name} and its districts. Get a top price for your salvage or scrap car.`} />
-                </Helmet>
+                                            <link rel="canonical" href={canonicalUrl} />
+
+                    </Helmet>
                 <Hero title={`Get a Scrap or Salvage Quote in ${name}`} subtitle={`Fast payment and free collection for any damaged, non-running, or scrap car in ${name}.`} image={mechanicalFailureImage} step={step} vehicleData={vehicleData} error={error} apiResponse={apiResponse} onSearch={handleSearch} onConfirm={handleConfirm} onReject={handleReject} onManualSubmit={handleManualSubmit} onUserDetailsSubmit={handleUserDetailsSubmit} />
                 
                  <Container className="py-3">
@@ -278,7 +287,9 @@ const LocationPage = () => {
                 <Helmet>
                     <title>{`Scrap & Salvage Car Collection ${name}, ${parents[2]}`}</title>
                     <meta name="description" content={`We buy and scrap damaged cars in ${name}. Our ${parents[2]} team provides free collection for MOT failures, non-runners, and write-offs.`} />
-                </Helmet>
+                                            <link rel="canonical" href={canonicalUrl} />
+
+                    </Helmet>
                  <Hero title={`Damaged & Scrap Car Collection in ${name}`} subtitle={`Our ${parents[2]} salvage team offers fast, free collection from your address in ${name}.`} image={heroBackgroundImage} step={step} vehicleData={vehicleData} error={error} apiResponse={apiResponse} onSearch={handleSearch} onConfirm={handleConfirm} onReject={handleReject} onManualSubmit={handleManualSubmit} onUserDetailsSubmit={handleUserDetailsSubmit} />
                 
                  <Container className="py-3">
